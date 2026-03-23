@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プログラミング研究会入門テキスト</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../styles.css">
+    <!-- Prism core -->
+    <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" rel="stylesheet"/>
+    <!-- line numbers CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-sql.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    </head>
+<body>
+    <!-- ハンバーガーメニュー -->
+    <div class="openbtn"><span></span><span></span><span></span></div>
+    <nav id="g-nav">
+        <div id="g-nav-list">
+            <ul>
+                <li><a href="#1st">1 本日の内容</a></li>
+                <li><a href="#2nd">2 Visual Studio Codeのインストール</a>
+                    <ul>
+                        <li><a href="#2.1">2.1 Visual Studio Codeとは</a></li>
+                        <li><a href="#2.2">2.2 Visual Studio Codeのインストール手順</a></li>
+                        <li><a href="#2.3">2.3 拡張機能のインストール</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <main>
+        <section id="1">
+            <h1>1&ensp;本日の内容</h1>
+            <p>
+                &emsp;今回はプログラミングをする前の<span class="point">環境構築</span>と呼ばれる作業を行います。『プログラミングをする』と聞くと、『プログラムを書く』ことをイメージする人が多いと思います。しかし、『プログラミングをする』という言葉には大きく分けて<span class="point"> 『コードを書く』『コードを動かす』『コードを確認する』の3つのステップ</span>があります。環境構築とはこれらの作業を行うために必要なソフトや設定を準備することです。<span class="point">これらを整えることで、はじめて自分のパソコンでプログラムを動かせるようになります。</span>
+            </p>
+        </section>
+        <section id="2">
+            <h1>2&ensp;Visual Studio Codeのインストール</h1>
+            <h2>2.1&ensp;Visual Studio Codeとは</h2>
+            <p>
+                &emsp;Visual Studio Code（以下:VS Code）は、プログラムを書くためのソフトで、<span class="point">コードエディタ</span>と呼ばれるツールです。皆様がイメージするような以下の画面、この編集画面がVS Codeの特徴的な画面です。
+                <br>
+                <img width="80%" src="../img/lecture2/image.png" alt="プログラミングのイメージ画像">
+                <br>
+                &emsp;もっと具体的な説明をすると、書いたコードを見やすく<span class="point">色分けして表示</span>したり、入力途中のコードを<span class="point">自動で補完</span>したり、<span class="point">間違いがある箇所を教えてくれる</span>機能があります。また、<span class="point">プログラムの動作確認や問題の特定（デバッグ）</span>を助ける機能も用意されており、初心者から実務レベルまで幅広く利用されています。さらにVS Codeの大きな特徴として、<span class="point"><a href="#2.3">拡張機能</a></span>を追加することで、自分の目的に合わせて機能を拡張できる点があります。たとえば、特定のプログラミング言語に対応した補助機能を追加したり、作業を効率化するツールを組み込んだりすることが可能です。この柔軟性の高さが、多くの開発者に利用されている理由の一つです。
+                <br>
+                &emsp;ただし、VS Codeはあくまで<span class="point">「コードを書くためのツール」</span>であり、それ単体でプログラムを動かすことはできません。たとえばPythonのプログラムを実行するためにはPython本体が必要であり、VS Codeはその作業を補助する役割を担います。そして、似たような機能を持つコードエディタはほかにもあります。普段から愛用しているものや使いたいコードエディタがある人はそれを利用してください。この資料の中ではVS Codeをインストールしている前提で話を進めていきます。
+            </p>
+
+            <h2 id="2.2">2.2&ensp;Visual Studio Codeのインストール手順</h2>
+            <p>
+                <ul style="color: blue;">
+                    <li style="color: blue;">ここから先の手順は執筆当時（2026年春）のものであり、今後更新されていく可能性があります。作業を進めていて、うまくいかないところや説明と違う内容が表示される場合は自分で検索をするか、部長や先輩に相談しましょう。</li>
+                    <li style="color: blue;">ここから先はWindowsの学校指定のスペックPCを買っている人向けの内容です。異なる場合は各自の機種に合わせたインストール方法を調べてください。</li>
+                </ul>
+                <ol>
+                    <li>
+                        まずは<a href="https://code.visualstudio.com/download">公式のダウンロードページ</a>にアクセスし、左側にあるWindowsの窓マークの下の<span class="point"> Windowsと書かれた青いボタン</span>をクリックします。
+                    </li>
+                    <li>
+                        次にダウンロード先を聞かれるので、適当な場所を選んで、<code class="code">.exeファイル</code> をダウンロードします。ダウンロードが完了したら、ファイルをダブルクリックして実行を押します。
+                    </li>
+                    <li>
+                        インスト―ラーが起動すると思います。基本的には、すべての項目をデフォルトのまま進めていけば問題ありません。インストール先も変更したい人は変更してもいいですが、特に理由がない限りはデフォルトのままで大丈夫です。ただし<span class="point">《追加タスクの選択》</span>は、ほぼすべての項目にチェックを入れておくことを強くお勧めします。<span class="point">これらの項目に関してはまだ内容は理解しなくても構いませんが、インストール後に再設定するのが面倒です。全てにチェックを入れましょう。</span>
+                    </li>
+                    <li>
+                        すべての手順を終え、下記の画面が開けると成功です。赤い矢印で示す四角いアイコンクリックしてください。
+                        <br>
+                        <img width="80%" src="../img/lecture2/home.png" alt="インストール成功のイメージ画像">
+                    </li>
+                    <li>初期設定では英語が選択されているため、日本語に設定します。検索バーが表示されると思うので、<span class="point">ms-ceintl.vscode-language-pack-ja</span>と検索してください。</li>
+                    <li>検索結果の中にMicrosoftが提供する、<span class="point">Japanese Language Pack for Visual Studio Code</span>という名前の拡張機能が表示されると思うのでそれをクリックしてください。</li>
+                    <li>地球儀のマークのページが表示されたら<span class="point">install</span>をクリックし、完了したら何もせずにアプリを閉じて、もう一度アプリを開きます。</li>
+                    <li>画面右下に<span class="point">Change Language and Restart</span>という案内が出てくるので、それをクリックしてからアプリをもう一度再起動すると日本語で表示されるようになります。</li>
+                </ol>
+                これでVS Codeを利用するための最低限の環境が整いました。
+            </p>
+            <h2 id="2.3">2.3&ensp;拡張機能のインストール</h2>
+            <p>
+                &emsp;前章の手順4～8でVS Codeを日本語にしてもらったと思いますが、実はあれもVS Codeの拡張機能の一つです。このようにVS Codeの拡張機能とは<span class="point">VS Codeをより良く自分が使いやすくするためのオプション</span>なので、気軽にインストールして使用してください。私なりにおすすめの拡張機能とその効果を書いておきます。皆様も自分の目的に合わせて、必要な拡張機能をインストールしてみてください。手順は先ほどの手順4～8と同様で、拡張機能の名前を検索してインストールしてください。
+                <ul>
+                    <li>
+                        <span class="point">oderwat.indent-rainbow</span>
+                        <br>&emsp;プログラミングコードは見やすくするために、文章と同じように改行を入れながら記述していきます。その際に段落ができるのですが、段落の深さに応じて色を変えてくれる拡張機能です。コードが複雑になっても、どこからどこまでが同じ段落なのかがわかりやすくなります。
+                    </li>
+                    <li>
+                        <span class="point">pkief.material-icon-theme</span>
+                        <br>&emsp;VS Codeのファイルやフォルダにアイコンを追加する拡張機能です。ファイルの種類によって異なるアイコンが表示されるため、視覚的にファイルを識別しやすくなります。一つのプロジェクトフォルダに様々な言語のファイルを作成するときに見分けがつきやすいです。
+                    </li>
+                    <li>
+                        <span class="point">streetsidesoftware.code-spell-checker</span>
+                        <br>&emsp;プログラミングでは変数や関数などの名前を決めるときに英語の単語を使うことが多いのですが、その際にスペルミスしていると、コードが正しく動かないことがあります。この拡張機能はスペルミスを検出して、スペルミスしている単語を赤い波線で表示してくれます。スペルミスを見つけやすくなります。
+                    </li>
+                    <li>
+                        <span class="point">mosapride.zenkaku</span>
+                        <br>&emsp;プログラミングにおいて全角でコードを書くことは致命傷になります。この拡張機能は全角の文字に背景色を付けてくれます。_やスペースなど全角か半角かを判別できずにエラーが出るなどということを防ぐことができます。
+                    </li>
+                    <li>
+                        <span class="point">formulahendry.auto-rename-tag</span>
+                        <br>&emsp;HTMLやXMLで文を書く際に、カギかっこのような役割をするタグと呼ばれるもので文を囲うのですが、先頭のタグを変えると後半のタグも自動で対応する形に変更してくれる拡張機能です。
+                    </li>
+                </ul>
+            </p>
+            <h2 id="2.4">2.4&ensp;フォントの変更</h2>
+            <p>
+                これは別に変更しなくても使えますが、視認性向上の観点からお勧めします。
+                <ol>
+                    <li>VS Codeの画面右下にある歯車マークをクリックして設定を開きます。</li>
+                    <li>検索バーに<code class="code">editor.fontFamily</code>と入力して<code class="code">'Source Han Code JP',Consolas, 'Courier New', monospace</code>をボックスに入力します。</li>
+                </ol>
+            </p>
+            <h2>次回の部活までにしてきてほしいこと</h2>
+            <p>&emsp;次回の資料からはいよいよプログラムを書いて動かしてもらいます。そこで、VS Codeとは何かについて改めて自分で調べて知識を増やし、また拡張機能について調べてお好みでカスタマイズしてみてください。</p>
+        </section>
+    </main>
+
+</body>
+<script src="../script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</html>
