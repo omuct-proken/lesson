@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プログラミング研究会入門テキスト</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../styles.css">
+    <!-- Prism core -->
+    <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" rel="stylesheet"/>
+    <!-- line numbers CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-cpp.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-sql.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    </head>
+<body>
+    <!-- ハンバーガーメニュー -->
+    <div class="openbtn"><span></span><span></span><span></span></div>
+    <nav id="g-nav">
+        <div id="g-nav-list">
+            <ul>
+                <li><a href="#1">1 本日の内容</a></li>
+                <li><a href="#2">2 C言語の環境構築</a>
+                    <ul>
+                        <li><a href="#2.1">2.1 前提条件と注意事項</a></li>
+                        <li><a href="#2.2">2.2 MinGWのインストール</a></li>
+                    </ul>
+                </li>
+                <li><a href="#3">3 プログラミング入門</a>
+                    <ul>
+                        <li><a href="#3.1">3.1 Hello, World!</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+        <!-- コピーボタン -->
+    <script>
+    function copySQL(button) {
+        // このボタンが属する code-container を取得
+        const container = button.closest('.code-container');
+        const code = container.querySelector('code').innerText;
+
+        navigator.clipboard.writeText(code).then(() => {
+            button.textContent = "Copied";
+            button.disabled = true;
+            button.classList.add("copied");
+
+            setTimeout(() => {
+                button.textContent = "Copy";
+                button.disabled = false;
+                button.classList.remove("copied");
+            }, 2000);
+        });
+    }
+    </script>
+    <main>
+        <section>
+            <h1 id="1">1&ensp;本日の内容</h1>
+            <p>
+                &emsp;今回は、前回に引き続きC言語（C++）の環境構築および簡単なコードの実行を行います。C言語は、プログラミング言語の中でも特に歴史が古く、パソコン甲子園や競技プログラミングでもよく使用される言語です。またC++はゲーム作成をしたい人にぜひ覚えてもらいたい言語です。どちらも実行できるような環境を整えておきましょう。
+            </p>
+        </section>
+        <section>
+            <h1 id="2">2&ensp;C言語の環境構築</h1>
+            <h2 id="2.1">2.1&ensp;前提条件と注意事項</h2>
+            <p>
+                <ul>
+                    <li>この説明はWindows11の環境でのみ動作確認をしています。</li>
+                    <li>MinGWなどのインストールは<span class="point">chromeなどのedge以外のブラウザ</span>で行うようにしてください。edgeから正常にインストールできなかった事例がありました。</li>
+                    <li>ダウンロードを行う時は<span class="point">pathに全角が入らないようにしてください</span>。ユーザー名が漢字フルネームで正常な処理ができなかった事例がありました。</li>
+                    <li>
+                        今回紹介する方法があくまで一例であるので、他の方法で試していただいても構いません。この説明はプロ研入部の新一年生向けに作成しています。
+                        <br>
+                        <div class="hint">
+                            <h4>おすすめの勉強法</h4>
+                            <p>
+                                &emsp;自分でチャレンジしたいという人には、<span class="point">Youtube</span>や<span class="point">ブログ</span>を見ながらやるのがおすすめです。これらのツールを使うメリットは<span class="point">情報の鮮度が高い（最新の情報が多い）</span>ことです。今回の資料内容もインターネット上に結構上がっているので、できそうな人は調べて自力でやってみましょう。
+                                <br>
+                                <b>参考例（Youtube）</b>
+                                <a href="statics.teams.cdn.office.net/evergreen-assets/safelinks/2/atp-safelinks.html">競技プログラミングの環境構築 [VSCode+WSL+AtCoder Library]【ゆっくり解説】</a>
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </p>
+        </section>
+        <section>
+            <h2 id="2.2">2.2&emsp;MinGWのインストール</h2>
+            <p>
+                &emsp;MinGW（ミンジーダブリュー）とは、<span class="point">Windows上でC言語やC++などのプログラムを作って実行できるようにするため</span>の「開発環境の一部」です。正式には「Minimalist GNU for Windows」の略です。
+                <br>
+                &emsp;通常、C言語やC++で書いたプログラムは、そのままでは動かず、<span class="point">コンパイル</span>という作業を行って、<span class="point">コンピュータが理解できる形に変換</span>する必要があります。MinGWには、このコンパイルを行うためのソフト（コンパイラ）が含まれており、Windowsでも簡単にプログラムを動かせるようになります。
+                <br>
+                &emsp;また、MinGWは軽量でシンプルなのが特徴で、余計な機能が少なく、初学者でも比較的扱いやすい環境です。インストールすると、コマンドプロンプトからプログラムをコンパイルして実行できるようになります。
+                <br>
+
+            </p>
+            <p>
+                <h3>インストール作業</h3>
+                <p>
+                    &emsp;まず初めに<a href="https://github.com/niXman/mingw-builds-binaries">サイト</a>にアクセスしてMinGWのインストールを行います。画像の矢印で示されいている<span class="point">MinGW-W64 online installer</span>の文字をクリックしダウンロードを開始します。この時ダウンロード先は任意の場所に保存してください。どこにダウンロードしても構いませんが、ここではダウンロードに保存しました。 ダウンロードが完了したらダウンロードしたファイルを開きます。
+                    <img class="picture" src="../img/lecture3/MinGW_install1.png" alt="MinGWインストール手順">
+                    <br>
+                    &emsp;このような警告が出ると思いますが問題ないので、実行を押します。
+                    <img class="picture" src="../img/lecture3/MinGW_install2.png" alt="MinGWインストール手順">
+                    <br>
+                    &emsp;このような画面が表示されたら、そのまま<span class="point">Next→</span>を押してください。
+                    <img class="picture" src="../img/lecture3/MinGW_install3.png" alt="MinGWインストール手順">
+                    <br>
+                    &emsp;バージョンの選択画面が表示されたら<span class="point">13.2.0</span>を選択し<span class="point">Next→</span>を押してください。
+                    <img class="picture" src="../img/lecture3/MinGW_install4.png" alt="MinGWインストール手順">
+                    <br>
+                    &emsp;<span class="point">64bit</span>を選択し<span class="point">Next→</span>を押してください。
+                    <br>
+                    <img class="picture" src="../img/lecture3/MinGW_install5.png" alt="MinGWインストール手順">
+                    <br>
+                    &emsp;次の画面では<span class="point">win32</span>を選択して<span class="point">Next→</span>を押します。
+                    <img class="picture" src="../img/lecture3/MinGW_install6.png" alt="MinGWインストール手順">
+                    <br>
+                    &emsp;ここではすでに<span class="point">rev1</span>が選択されていると思うのでそのまま<span class="point">Next→</span>を押してください。
+                    <img class="picture" src="../img/lecture3/MinGW_install7.png" alt="MinGWインストール手順">
+                    <br>
+                    &emsp;ここでもすでに<span class="point">msvcrt</span>が選択されていると思うのでそのまま<span class="point">Next→</span>を押してください。
+                    <img class="picture" src="../img/lecture3/MinGW_install8.png" alt="MinGWインストール手順">
+                    <br>
+                    &emsp;この画面でMinGWを保存する場所を決めますが、<code class="code">C:/Users/ユーザー名/</code>になっているかを確認して下さい。違う場合は<span class="point">choose</span>から変更してください。選択できていることが確認ができたら、<span class="point">Install</span>を押してそのままインストールしてください。終了後<span class="point">finishを押してパソコンを再起動</span>したらインストール作業は終了です。
+                    <img class="picture" src="../img/lecture3/MinGW_install9.png" alt="MinGWインストール手順">
+                </p>
+                <h3>pathの設定</h3>
+                <p>
+                    &emsp;次にpathの設定を行います。PC画面下のタスクバーかウィンドウズボタンを押して、検索画面に<span class="point">環境変数</span>と入れて<span class="point">環境変数の編集</span>を開きます。
+                    <br>
+                    <img class="picture" src="../img/lecture3/kankyou.png" alt="環境変数の編集">
+                    <br>
+                    <img class="picture" src="../img/lecture3/kankyou2.png" alt="環境変数の編集">
+                    <br>
+                    &emsp;この画面が表示されたら、矢印で示している<span class="point">Path</span>を選択し編集を押します。
+                    <br>
+                    <img class="picture" src="../img/lecture3/kankyou3.png" alt="環境変数の編集">
+                    <br>
+                    &emsp;この小ウィンドウが表示されたら<span class="point">新規</span>を押して、<code class="code">C:/Users/ユーザー名/mingw64/bin</code>と入力します。このとき<span class="point">ユーザー名の部分を必ずあなたの名前に変更</span>してください。登録ができたら<span class="point">OK</span>を押して画面をすべて閉じたら<span class="point">パソコンを一度再起動</span>します。
+                    <br>
+                    &emsp;再起動が終わったらターミナル（コマンドプロンプト）を先ほどと同様に検索窓から検索して開きます。
+                    <br>
+                    <img class="picture" src="../img/lecture3/komando.png" alt="ターミナル">
+                    <br>
+                    &emsp;コマンドプロンプトで<code class="code">gcc -version</code>と入力してください。<code class="code">gcc</code>と<code class="code">--version</code>の間には半角スペースを忘れずに入れてください。入力できたらEnterキーを押して、上記の画像のような出力ができているかを確認して下さい。この出力が表示されて入ればMinGWの設定は終了です。
+                </p>
+                <div class="hint">
+                    <h4 style="color: rgb(122, 70, 6);">設定がうまくいかないとき</h4>
+                    &emsp;先ほど使用したコマンドプロンプトのプラスマークの横のマークからか検索窓から検索をしてWindows PowerShell を開きます。そこで<code class="code">$ENV:Path</code>と入力し出力を確認します。出力結果の中に先ほど入力した<code class="code">C:/Users/ユーザー名/mingw64/bin</code>があるかを確認し，なければ，<code class="code">$ENV:Path="C:/Users/ユーザー名/mingw64/bin"</code>を入力し再度再起動してもう一度確認作業を行ってください。これでしっかりとpathが登録できていれば、コマンドプロンプトでの確認作業に戻り正常に動作していれば終了してください。これでも解決しない場合は、先輩に聞いたりエラーや状態を検索するか、もう一度pathの追加の部分からやり直してみてください。
+                </div>
+                <h3>Visual Studio Codeの設定</h3>
+                &emsp;前回の資料で紹介した、<a href="../lecture/lecture2.html/#2nd">2.1 Visual Studio Code</a> についての補足の章になります。追加でインストールしておいてほしい拡張機能を羅列しているので、インストールしてください。
+                <ul>
+                    <li>ms-vscode.cpptools-extension-pack</li>
+                    <li id="n">formulahendry.code-runner</li>
+                </ul>
+                &emsp;2つ目にインストールしたCode Runnerは別途設定が必要です。Code Runnerのインストール後に表示される<i class="fa-solid fa-gear" style="color: #d6037b;"></i>をクリックし設定画面を開きます。スクロールして<span class="point">Run in Terminal</span>にチェックを入れます。これで設定は完了です。
+                <h3>文字化け対策</h3>
+                <p>
+                    &emsp;プログラミングでは文字を出力するときに英語を使用することが多いです。しかし、言語や場合によっては日本で文字を表示したいときがあると思います。何も設定せずに日本語をプログラムに混ぜると<span class="point">文字化け</span>が起こることがあります。今後プログラミングを進めていく中で、文字化けが発生したときはこちらを参考に直してください。（あらかじめやっておくことを推奨します。）
+                    <ol>
+                        <li>
+                            <a href="#n">前章のCode Runnerの設定</a>に戻って、<span class="point">Code-runner: Executor Map</span>を探し、その下にある<span class="point">setting.json</span>で編集をクリックします。
+                            <br>
+                            <img class="picture" src="../img/lecture3/setting.png" alt="Setting.jsonの場所">
+                        </li>
+                        <li>
+                            下の画像に矢印で示した2行を変更していきます。まず画像の12行目C言語の設定をしていただきます。デフォルトではダブルクオーテーション内が<code class="code">"cd $dir && gcc $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt"</code>となっていますが、<code class="code">"cd $dir && gcc -fexec-charset=CP932 $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt"</code>に変更してください。
+                            <br>
+                            <img class="picture" src="../img/lecture3/settingjson.png" alt="Setting.jsonの編集">
+                        </li>
+                        <li>
+                            次に画像の14行目C++の設定をしていきます。デフォルトではダブルクオーテーション内が<code class="code">"cd $dir && g++ $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt"</code>となっていますが、<code class="code">"cd $dir && g++ -fexec-charset=CP932 $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt"</code>に変更してください。
+                        </li>
+                    </ol>
+                    以上で設定は終了です。
+                </p>
+            </p>
+        </section>
+        <section>
+            <h1 id="3">3&ensp;プログラミング入門</h1>
+            <p>
+                &emsp;我々はここまででよく使われているPythonとC（C++）を動かすための環境構築をやってきました。ここからは、正しく環境構築ができているかの動作確認も兼ねて、少しだけ簡単なプログラムを書いて動かしてみたいと思います。
+            </p>
+            <h2 id="3.1">3.1&ensp;Hello, World!</h2>
+            <p>
+                &emsp;プログラミングを始めるときに最初に書くことが多いのが、<span class="point">Hello, World!</span>というプログラムです。これは、画面に「Hello, World!」と表示するだけの簡単なプログラムで、プログラミングの環境構築をしたときの動作確認としてもよく使われる挨拶がわりのプログラムです。ここでは、PythonとC++でHello, World!を書いてみましょう。
+                <br>
+                &emsp;まずエクスプローラで適当な場所に<code class="code">HelloWorld</code>という新しいフォルダを作成します。フォルダを右クリックして<span class="point">Codeで開く</span>をクリックしてください。
+                <br>
+                <img class="picture" style="width: 30%;" src="../img/lecture3/select.png" alt="選択画面">
+                <br>
+                &emsp;VS Codeが開くと思います。右上のHELLOWORLDの横にあるアイコンを見てください
+                <i class="fa-solid fa-file-circle-plus" style="color: #d6037b;"></i>👈このアイコンがファイルを作るアイコンになります。ワンクリックすると下に枠が表示されると思うので、<code class="code">HelloWorld.py</code>と<code class="code">HelloWorld.cpp</code>という名前でファイルを2つ作成してください。<span class="point"><code class="code">.py</code>と後ろに付けるとPythonのコード、<code class="code">.cpp</code>と後ろに付けるとC++のコード</span>になります。
+                <br>
+                &emsp;ファイルができたら、<code class="code">HelloWorld.py</code>を開いて、下のコードをコピペしてください。
+                <div class="code-container">
+                <div class="code-header">
+                <span class="filename">Hello, World! (Python)</span>
+                <button class="copy-btn"  onclick="copySQL(this)">Copy</button>
+                </div>
+<pre class="code-block line-numbers"><code class="language-python">print("Hello, World!")</code></pre>
+</div>
+                <br>
+                &emsp;次に<code class="code">HelloWorld.cpp</code>を開いて、下のコードをコピペしてください。
+                <div class="code-container">
+                <div class="code-header">
+                <span class="filename">Hello, World! (C++)</span>
+                <button class="copy-btn"  onclick="copySQL(this)">Copy</button>
+                </div>
+<pre class="code-block line-numbers"><code class="language-cpp">#include &lt;iostream&gt;
+int main() {
+    std::cout &lt;&lt; "Hello, World!" &lt;&lt; std::endl;
+    return 0;
+}</code></pre>
+</div>
+                <br>
+                &emsp;コードを入力できたら、<code class="code">Ctrlキー + shiftキー + @キー</code>でターミナルを開きます。両方のファイルで<span class="point">右上の<i class="fa-solid fa-play" style="color: #d6037b;"></i>ボタン横の<i class="fa-solid fa-chevron-down" style="color: #d6037b;"></i>を押してRun Codeで実行</span>してください。ターミナルに「Hello, World!」と表示されれば成功です。
+            <br>
+            &emsp;これで出力の確認ができました。今回は簡単な英文を表示するだけでしたが、2つのコードを見比べると<span class="point">同じことをしているのに全然違う記述をしている</span>ことがわかるかと思います。日本語と英語のようにプログラミング言語にも記述のルールがあります。今後はこのルールを少しずつ理解していき、プログラムを作れるようになっていきましょう。
+            </p>
+        </section>
+        <h1>次回の部活までにしてきてほしいこと</h1>
+        <p>
+            &emsp;次回以降はVS Codeの操作に慣れてもらうために、一度PythonやC++を離れて、HTMLとCSSという簡単な言語を扱っていきます。今後競技部門に行きたい人は読み飛ばして先にPythonやC言語の内容に進んでもらっても構いません。HTMLとCSSは、Webサイトを作るための言語で、<span class="point">HTMLはWebサイトの構造を作るための言語、CSSはWebサイトの見た目を整えるための言語</span>になります。次回までに、興味のある人はHTMLとCSSについて簡単に調べてみてください。特にHTMLは、<span class="point">タグ</span>と呼ばれる記号を使って文章の構造を作ることができるので、タグについて調べてみてください。
+        </p>
+
+    </main>
+</body>
+<script src="../script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</html>

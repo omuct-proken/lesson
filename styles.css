@@ -6,6 +6,12 @@ body{
     line-height: 1.5;
 }
 
+.picture {
+    width: 60%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .point{
     color: var(--main-color);
     font-weight: bold;
@@ -207,6 +213,90 @@ pre.line-numbers .line-numbers-rows {
 
 code[class*="language-"] {
     background: transparent !important;
+}
+
+code.language-python .token.comment,
+code.language-python .token.prolog,
+code.language-python .token.doctype,
+code.language-python .token.cdata,
+code.language-cpp .token.comment,
+code.language-cpp .token.prolog,
+code.language-cpp .token.doctype,
+code.language-cpp .token.cdata {
+    color: #008000 !important;
+}
+
+code.language-python .token.keyword,
+code.language-python .token.atrule,
+code.language-cpp .token.keyword,
+code.language-cpp .token.atrule {
+    color: #0000ff !important;
+}
+
+code.language-python .token.string,
+code.language-python .token.char,
+code.language-cpp .token.string,
+code.language-cpp .token.char {
+    color: #15a317 !important;
+}
+
+code.language-python .token.number,
+code.language-python .token.boolean,
+code.language-python .token.constant,
+code.language-cpp .token.number,
+code.language-cpp .token.boolean,
+code.language-cpp .token.constant {
+    color: #098658 !important;
+}
+
+code.language-python .token.function,
+code.language-python .token.method,
+code.language-cpp .token.function,
+code.language-cpp .token.method {
+    color: #795e26 !important;
+}
+
+code.language-python .token.class-name,
+code.language-python .token.builtin,
+code.language-cpp .token.class-name,
+code.language-cpp .token.builtin {
+    color: #267f99 !important;
+}
+
+code.language-cpp .token.namespace,
+code.language-cpp .token.preprocessor,
+code.language-cpp .token.directive,
+code.language-cpp .token.macro,
+code.language-cpp .token.template {
+    color: #af00db !important;
+}
+
+code.language-cpp .token.identifier,
+code.language-cpp .token.entity,
+code.language-cpp .token.symbol {
+    color: #001080 !important;
+}
+
+code.language-python .token.property,
+code.language-python .token.variable,
+code.language-python .token.parameter,
+code.language-python .token.field,
+code.language-cpp .token.property,
+code.language-cpp .token.variable,
+code.language-cpp .token.parameter,
+code.language-cpp .token.field {
+    color: #001080 !important;
+}
+
+code.language-python .token.operator,
+code.language-python .token.punctuation,
+code.language-cpp .token.operator,
+code.language-cpp .token.punctuation {
+    color: #931313 !important;
+}
+
+code.language-python .token.decorator {
+    color: #af00db !important;
 }
 
 .hint {
