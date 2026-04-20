@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プログラミング研究会入門テキスト</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../styles.css">
+    <!-- Prism core -->
+    <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" rel="stylesheet"/>
+    <!-- line numbers CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-markup.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-sql.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    </head>
+<body>
+        <!-- コピーボタン -->
+    <script>
+    function copySQL(button) {
+        // このボタンが属する code-container を取得
+        const container = button.closest('.code-container');
+        const code = container.querySelector('code').innerText;
+
+        navigator.clipboard.writeText(code).then(() => {
+            button.textContent = "Copied";
+            button.disabled = true;
+            button.classList.add("copied");
+
+            setTimeout(() => {
+                button.textContent = "Copy";
+                button.disabled = false;
+                button.classList.remove("copied");
+            }, 2000);
+        });
+    }
+    </script>
+    <!-- ハンバーガーメニュー -->
+    <div class="openbtn"><span></span><span></span><span></span></div>
+    <nav id="g-nav">
+        <div id="g-nav-list">
+            <ul>
+                <li><a href="#1">1 本日の内容</a></li>
+                <li><a href="#2">2 準備と復習</a></li>
+                <li><a href="#3">3 HTMLについて</a>
+                    <ul>
+                        <li><a href="#3.1">3.1 HTMLの基本構造</a></li>
+                        <li><a href="#3.2">3.2 HTMLのタグ</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="#4th">4 CSSについて</a>
+                    <ul>
+                        <li><a href="#4.1">4.1 CSSの基本構造</a></li>
+                        <li><a href="#4.2">4.2 divタグとspanタグを使った部分的なCSS</a></li>
+                        <li><a href="#4.3">4.3 フォントと外部リソース</a></li>
+                        <li><a href="#4.4">4.4 HTMLとCSSの応用例</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#5">5 Git Hubについて</a>
+                </li>
+                <li><a href="#6">6 ポートフォリオについて</a>
+                    <ul>
+                        <li><a href="#6.1">6.1 ポートフォリオとは</a></li>
+                        <li><a href="#6.2">6.2 情報系学生のポートフォリオに含めるべき項目</a></li>
+                        <li><a href="#6.3">6.3 ポートフォリオサイトの作成例</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <main>
+        <section id="1">
+            <h1>1&ensp;本日の内容</h1>
+            <p>
+                &emsp;今回は<span class="point">HTML</span>と<span class="point">CSS</span>という、Webサイトを作るための言語について学びます。前回の資料の最後にも説明しましたが、<span class="point">HTMLはWebサイトの構造を作るための言語</span>で、<はWebサイトの見た目を整えるための言語 <span class="point">CSSはWebサイトの見た目を整えるための言語</span>という、になります。この章を通じて、VS Codeの操作にも慣れていきましょう。
+            </p>
+        </section>
+        <section id="2">
+            <h1>2&ensp;準備と復習</h1>
+            <p>
+                &emsp;今回もVS Codeを使うのですが、以下の拡張機能を入れておいてほしいので、ダウンロードをお願いします。ダウンロードできたら一度閉じてもらって構いません。拡張機能のインスト―ル方法は<a href="../lecture/lecture2.html#2.3">第2回資料 2.3&ensp;拡張機能のインストール</a>を参考にしてください。
+                <ul>
+                    <li>ritwickdey.liveserver</li>
+                    <li>anteprimorac.html-end-tag-labels</li>
+                    <li>formulahendry.auto-rename-tag</li>
+                    <li>cmel.vscode-html-css</li>
+                </ul>
+                &emsp;次にエクスプローラを開いて、任意の場所に<code class="code">html_lecture</code>という名前でフォルダを作成してください。完成したらフォルダを右クリックし<span class="point">Codeで開く</span>でVS Codeを開いてください。VS Codeでフォルダを開くと、左側のエクスプローラに先ほど作成したフォルダが表示されると思います。次回以降はこのフォルダの中にHTMLやCSSのファイルを作成していきます。
+                <br>
+                <span class="point">&emsp;今回の講義以降すべてにおいて共通のルールなのですが、プログラムを書く・変更するときは必ず使用したファイルすべてを保存</span><code class="code">Ctrl+Sキー</code><span class="point">してください。保存しないと期待した通りの結果が得られません。</span>
+            </p>
+        </section>
+        <section id="3">
+            <h1>3&ensp;HTMLについて</h1>
+            <p>
+                &emsp;HTMLはWebサイトを作るための言語と最初に説明したと思います。プログラミング研究会で使っているこの資料もHTMLとCSSを用いて作られています。このように静的な（動きのない）Webサイトを作るための言語がHTMLとCSSになります。
+            </p>
+            <h2>3.1&ensp;HTMLの基本構造</h2>
+            <p>
+                &emsp;HTMLのコードは<span class="point">タグ</span>で構成されていて、タグは<code class="code">&lt;タグ名&gt;</code>のように書きます。タグには開始タグと終了タグがあって、終了タグは開始タグの前にスラッシュ（/）をつけて<code class="code">&lt;/タグ名&gt;</code>のように書きます。HTMLのコードはこの開始タグと終了タグで囲まれた部分が意味を持ちます。
+                <br>
+                &emsp;先ほど開いたVS Codeで画面左上の<i class="fa-solid fa-file-circle-plus" style="color: #d6037b;"></i>マークから<code class="code">main.html</code>という名前でファイルを作成してください。htmlを使うときの拡張子は<code class="code">.html</code>です。続いて、<code class="code">html</code>と入力してください。すると変換候補に<code class="code">html:5</code>というものが出てくると思います。これを選択すると、<span class="point">HTMLの基本構造</span>が自動で入力されます。HTMLのコードはこのようにVS Codeの機能を使うと簡単に書くことができます。
+
+                <br>
+                <div class="code-container">
+                <div class="code-header">
+                <span class="filename">HTMLの基本構造 (HTML)</span>
+                <button class="copy-btn"  onclick="copySQL(this)">Copy</button>
+                </div>
+                <pre class="code-block line-numbers"><code class="language-markup">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt; &lt;!-- このサイトの言語を選択 --&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Document&lt;/title&gt; &lt;!-- このサイトのタイトルを入力するとこ --&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- ここに本文を入力 --&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+                <br>
+                &emsp;このコードの意味は以下の通りです。
+                <ul>
+                    <li><code class="code">&lt;!DOCTYPE html&gt;</code>はこのファイルが<span class="point">HTMLで書かれていることを宣言する</span>ためのコードです。</li>
+                    <li><code class="code">&lt;html lang="en"&gt;</code>はこのサイトの<span class="point">言語</span>を指定するためのコードです。日本語の場合は<code class="code">lang="ja"</code>と書きます。</li>
+                    <li><code class="code">&lt;head&gt;</code>と<code class="code">&lt;/head&gt;</code>で囲まれた部分はこのサイトの<span class="point">情報</span>を入力する場所になります。ここにはサイトのタイトルや、サイトの見た目を整えるためのCSSファイルのリンクなどを入力します。</li>
+                    <li><code class="code">&lt;body&gt;</code>と<code class="code">&lt;/body&gt;</code>で囲まれた部分はこのサイトの<span class="point">本文</span>を入力する場所になります。ここに見出しや段落、画像などを入力していきます。</li>
+                </ul>
+                &emsp;この基本構造は毎回htmlファイルを作成したときに、作ってください。VS Codeの機能を使うと簡単に入力できるので覚える必要はありません。
+            </p>
+            <h2>3.2&ensp;HTMLのタグ</h2>
+            <p>
+                &emsp;HTMLのコードはタグで構成されていると説明しましたが、タグには様々な種類があります。今回は基本的なタグをいくつか紹介します。
+                <ul>
+                    <li><code class="code">&lt;h1&gt;</code>から<code class="code">&lt;h6&gt;</code>は<span class="point">見出し</span>を作るためのタグです。数字が小さいほど大きな見出しになります。</li>
+                    <li><code class="code">&lt;p&gt;</code>は<span class="point">段落</span>を作るためのタグです。</li>
+                    <li><code class="code">&lt;img&gt;</code>は<span class="point">画像</span>を表示するためのタグです。</li>
+                    <li><code class="code">&lt;a&gt;</code>は<span class="point">リンク</span>を作るためのタグです。</li>
+                </ul>
+                &emsp;これらのタグを使って、実際にWebサイトを作ってみましょう。まず、先ほどの基本構造のbodyタグの中に以下のコードを入力してください。
+                <br>
+                <div class="code-container">
+                <div class="code-header">
+                <span class="filename">HTMLのタグ (HTML)</span>
+                <button class="copy-btn"  onclick="copySQL(this)">Copy</button>
+                </div>
+                <pre class="code-block line-numbers"><code class="language-markup">&lt;h1&gt;見出し1&lt;/h1&gt;
+&lt;p&gt;これは段落です。&lt;/p&gt;
+&lt;a href="https://omuct-proken.github.io/lesson/"&gt;プロ研新入部員説明資料&lt;/a&gt;</code></pre>
+                </div>
+                <br>
+                これで作成したページを確認するために画面右下の<i class="fa-solid fa-circle-play" style="color: #d6037b;"></i>GO Liveを押してください。しばらくすると<code class="code">http://127.0.0.1:5500</code>のような形でリンクが表示されるので、それをクリックしブラウザ（Chromeなど）で開いてください。すると、以下のようなページが表示されると思います。
+                <br>
+                <img class="picture" style="border: 3px solid #d6037b;" src="../img/lecture4/4-1.png" alt="HTMLのタグの例" class="screenshot">
+                <br>
+                &emsp;これがHTMLのタグを使って作成したWebサイトになります。見出しや段落、リンクが表示されていると思います。これらはすべてHTMLのタグを使って作成されています。
+                <h2><i class="fa-solid fa-graduation-cap" style="color: #d6037b;"></i>演習１</h2>
+                &emsp;HTMLのタグを使って、以下のようなWebサイトを作成してみましょう。(フォントは気にしなくて構いません。)
+                <br>
+                <div style="border: 3px solid #d6037b;">  
+                    <div class="no-style">
+                        <h1>自己紹介ページ(h1タグ)</h1>
+                        <br>
+                        <p>
+                            こんにちは。私の名前は○○です。
+                            <br>
+                            <b style="font-weight: bold;">大阪公立大学工業高等専門学校プログラミング研究会</b>に所属しています。
+                            <br>
+                            <a style="color: blue;" href="https://www.ct.omu.ac.jp/campuslife/club/intro-programming-club/index.html">部活の紹介サイト</a>
+                            <br>
+                            <h2>私の好きなキャラクター(h2タグ)</h2>
+                            <br>
+                            (下の画像は好きなキャラクターに変更してください)
+                            <img src="../img/lecture4/image.png" alt="私の好きなキャラクター">
+                        </p>
+                    </div>
+                </div>
+                <a style="font-size: large;" href="https://github.com/omuct-proken/lesson/blob/main/lecture/answers/4/4-1.html">CSSの答え</a>
+
+                <h3>チェックリスト</h3>
+                <ul>
+                    <li>タイトルの文字は大きくなっているか</li>
+                    <li>適切な位置で改行されているか
+                        <br>
+                        <i class="fa-solid fa-lightbulb" style="color: #d6037b;"></i>ヒント：改行するにはとあるタグを使います。（調べてみましょう）</li>
+                    <li>部活の紹介サイトを押すと<code class="code">https://www.ct.omu.ac.jp/campuslife/club/intro-programming-club/index.html</code>が開くか</li>
+                    <li>自分の表示したい画像が表示されているか</li>
+                    <li>大阪公立大学工業高等専門学校プログラミング研究会が太字で表示されているか</li>
+                </ul>
+                <p>&emsp;すべての項目をクリアした人は次章に進んでください。もししらべてもわからないところは、部長やほかの人に聞いて完成させましょう。</p>
+        </section>
+        <section id="4">
+            <h1>CSSについて</h1>
+            <p>
+                &emsp;CSSはWebサイトのデザインを行うための言語と最初に説明したと思います。プログラミング研究会で使っているこの資料もHTMLとCSSを用いて作られています。先ほどの章でHTMLコードを書いてもらいましたが、文字の色は全部黒で、サイズや色は変えれなかったと思います。ここからはCSSを使って、文字の色やサイズを変えていきましょう。
+            </p>
+            <h2>4.1&emsp;CSSの基本構造</h2>
+            <p>
+                &emsp;CSSの基本的な構造は、<span class="point">セレクタ</span> と<span class="point">宣言</span>の組み合わせです。セレクタはHTML要素を指定し、宣言はその要素のスタイルを定義します。<code class="code">main.html</code>を作った時同様、画面左上の<i class="fa-solid fa-file-circle-plus" style="color: #d6037b;"></i>マークから<code class="code">style.css</code>という名前でファイルを作成してください。cssファイルの拡張子は<code class="code">.css</code>です。
+                <br>
+                <div class="code-container">
+                <div class="code-header">
+                <span class="filename">CSSの基本</span>
+                <button class="copy-btn"  onclick="copySQL(this)">Copy</button>
+                </div>
+                <pre class="code-block line-numbers"><code class="language-css">セレクタ名{
+    要素のプロパティ: 値;
+}</code></pre>
+                </div>
+                <br>
+                &emsp;例えば、すべての段落（<code class="code">&lt;p&gt;</code>タグ）の文字色を赤色にしたい場合は、セレクタに<code class="code">p</code>を指定し、宣言に<code class="code">color: red;</code>と書きます。すると、すべての段落の文字が赤色になります。
+                                    <div class="code-container">
+                <div class="code-header">
+                <span class="filename">段落を赤文字にする（style.css）</span>
+                <button class="copy-btn"  onclick="copySQL(this)">Copy</button>
+                </div>
+                <pre class="code-block line-numbers"><code class="language-css">.p{
+    color: red;
+}</code></pre>
+                </div>
+                <br>
+                &emsp;これを書いた状態で前章のGo Live機能で<code class="code">http://127.0.0.1:5500</code>にアクセスすると、段落の文字が赤色になります…？
+                <br>
+                &emsp;段落の文字は赤色になっていませんね。これは、CSSファイルをHTMLファイルにリンク（紐づけ）していないからです。CSSファイルをHTMLファイルにリンクするには、HTMLファイルの<code class="code">&lt;head&gt;</code>タグの中に以下のコードを入力してください。
+                <br>
+                <br>
+                <div class="code-container">
+                <div class="code-header">
+                <span class="filename">HTMLファイルにCSSをリンクする</span>
+                <button class="copy-btn"  onclick="copySQL(this)">Copy</button>
+                </div>
+                <pre class="code-block line-numbers"><code class="language-html">&lt;link rel="stylesheet" href="style.css"&gt;</code></pre>
+                </div>
+                <br>
+                &emsp;これでHTMLファイルとCSSファイルがリンクされました。もう一度<code class="code">http://127.0.0.1:5500</code>にアクセスして、段落の文字が赤色になるか確認してみてください。先ほどの演習を正しくできていた場合は、下の画像のようになっていると思います。
+                <br>
+                <img class="picture" style="border: 3px solid #d6037b;" src="../img/lecture4/image2.png" alt="CSSの基本構造の例" class="screenshot">
+            </p>
+            <h2><i class="fa-solid fa-graduation-cap" style="color: #d6037b;"></i>&ensp;演習2</h2>
+            &emsp;CSSを使って、先ほどの自己紹介ページを以下のように装飾してみましょう。わからないものはインターネットで調べたり、答えを確認して何が違うかを考えてください。
+            <ul>
+                <li>タイトルは青色にすること</li>
+                <li>写真のサイズを100pxにすること</li>
+                <li>タイトルは中央揃えで書く</li>
+            </ul>
+            <a style="font-size: large;" href="https://github.com/omuct-proken/lesson/blob/main/lecture/answers/4/4-2.css">CSSの答え</a>
+            <br>
+            <a style="font-size: large;" href="https://github.com/omuct-proken/lesson/blob/main/lecture/answers/4/4-2.html">HTMLの答え</a>
+            </p>
+            <h2 id="4.2">4.2&ensp;divタグとspanタグを使った部分的なCSS</h2>
+            <p>
+                &emsp;これまでのCSSは、特定のタグ全体に対してスタイルを適用していました。例えば、<code class="code">p</code>セレクタを指定すれば、すべての段落に同じスタイルが適用されます。しかし、実際のWebサイトでは、段落内のある部分だけを赤色にしたい、という場合があります。そのような場合に活躍するのが、<span class="point">divタグ</span>と<span class="point">spanタグ</span>です。
+                <br><br>
+                &emsp;<span class="point">divタグ</span>は、複数の要素をグループ化するための<span class="point">ブロックレベル要素</span>です。ボックスのようなイメージで、関連する複数の要素をひとまとめにします。一方、<span class="point">spanタグ</span>は、テキストの一部をグループ化するための<span class="point">インライン要素</span>です。段落内の特定の単語や句を強調したい場合に用います。
+                <br><br>
+                &emsp;例えば、ある段落内の特定の単語だけを赤くしたい場合、その単語を<code class="code">span</code>タグで囲み、CSSで<code class="code">span</code>タグの中の色を赤に指定します。以下の例を見てください。
+                <br>
+                <div class="code-container">
+                <div class="code-header">
+                <span class="filename">spanタグを使った部分的なCSS（HTML）</span>
+                <button class="copy-btn"  onclick="copySQL(this)">Copy</button>
+                </div>
+                <pre class="code-block line-numbers"><code class="language-html">&lt;p&gt;この文章の&lt;span class="highlight"&gt;特定の部分&lt;/span&gt;だけを赤くします。&lt;/p&gt;</code></pre>
+                </div>
+                <br>
+                <div class="code-container">
+                <div class="code-header">
+                <span class="filename">spanタグを使った部分的なCSS（CSS）</span>
+                <button class="copy-btn"  onclick="copySQL(this)">Copy</button>
+                </div>
+                <pre class="code-block line-numbers"><code class="language-css">span.highlight {
+    color: red;
+}</code></pre>
+                </div>
+                <br>
+                &emsp;CSS内の<code class="code">span.highlight</code>は、classが「highlight」のspanタグを指すセレクタです。このようにセレクタに<code class="code">.</code>をつけると、特定の<span class="point">クラス</span>を持つ要素だけにスタイルを適用できます。
+                <br><br>
+                &emsp;divタグも同様です。例えば、自己紹介ページの背景のある領域全体を別の色でまとめたい場合、その領域全体をdivタグで囲み、CSSで背景色を指定します。
+                <br>
+                <div class="code-container">
+                <div class="code-header">
+                <span class="filename">divタグを使ったグループ化の例（HTML）</span>
+                <button class="copy-btn"  onclick="copySQL(this)">Copy</button>
+                </div>
+                <pre class="code-block line-numbers"><code class="language-html">&lt;div class="profile-card"&gt;
+    &lt;h2&gt;私の名前&lt;/h2&gt;
+    &lt;p&gt;これは私の自己紹介です。&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+                <br>
+                <div class="code-container">
+                <div class="code-header">
+                <span class="filename">divタグを使ったグループ化の例（CSS）</span>
+                <button class="copy-btn"  onclick="copySQL(this)">Copy</button>
+                </div>
+                <pre class="code-block line-numbers"><code class="language-css">div.profile-card {
+    background-color: lightblue;
+    border-radius: 10px;
+    padding: 15px;
+}</code></pre>
+                </div>
+                <br>
+                &emsp;このCSSを適用すると、divタグで囲まれた領域全体に薄い青色の背景色がつき、角が丸くなり、内側に余白が生まれます。このようにして、Webページの各セクションを視覚的に分けることができます。
+            </p>
+            <h2><i class="fa-solid fa-graduation-cap" style="color: #d6037b;"></i>&ensp;演習3</h2>
+            &emsp;自己紹介ページに以下の要素を追加してみましょう。
+            <ul>
+                <li>名前や自己紹介をdivタグでグループ化し、背景色と余白を設定する</li>
+                <li>自己紹介文の中で、特に大切な単語をspanタグで囲み、それを色を変えて強調する</li>
+                <li>スタイルシートに新しいクラスを追加して、これらを実装する</li>
+            </ul>
+            <a style="font-size: large;" href="https://github.com/omuct-proken/lesson/blob/main/lecture/answers/4/4-3.css">CSSの答え</a>
+            <br>
+            <a style="font-size: large;" href="https://github.com/omuct-proken/lesson/blob/main/lecture/answers/4/4-3.html">HTMLの答え</a>
+            <br><br>
+            <h2 id="4.3">4.3&ensp;フォントと外部リソース</h2>
+            <p>
+                &emsp;Webサイトのデザインで重要な要素のひとつが、フォント（文字の種類）です。初期設定ではブラウザが用意した基本的なフォントが使われていますが、デザイン性を高めるために、特定のフォントを指定することができます。また、Webサイトに<span class="point">アイコン</span>を追加するために<span class="point">外部リソース</span>を使用することも一般的です。
+                <br><br>
+                &emsp;<span class="point">Googleフォント</span>は、Googleが提供する無料で商用利用可能なフォントのライブラリです。このテキストでもすでに使われていますが、HTMLの<code class="code">&lt;head&gt;</code>タグに一行追加するだけで、任意のフォントを利用できます。公式サイトは<a href="https://fonts.google.com/" target="_blank" style="color: var(--main-color);">こちら</a>です。例えば、以下のコードを<code class="code">&lt;head&gt;</code>タグに追加します。
+                <br>
+                <div class="code-container">
+                <div class="code-header">
+                <span class="filename">Googleフォントをリンクする</span>
+                <button class="copy-btn"  onclick="copySQL(this)">Copy</button>
+                </div>
+                <pre class="code-block line-numbers"><code class="language-html">&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&quot;&gt;</code></pre>
+                </div>
+                <br>
+                &emsp;このリンクを追加した後、CSSで<code class="code">font-family</code>プロパティに<code class="code">Roboto</code>を指定すれば、そのフォントが使用されます。
+                <br>
+                <div class="code-container">
+                <div class="code-header">
+                <span class="filename">Googleフォントを使用する（CSS）</span>
+                <button class="copy-btn"  onclick="copySQL(this)">Copy</button>
+                </div>
+                <pre class="code-block line-numbers"><code class="language-css">body {
+    font-family: Roboto, sans-serif;
+}</code></pre>
+                </div>
+                <br>
+                &emsp;もう一つの重要な外部リソースが、<span class="point">Font Awesome</span>です。Font Awesomeは、数千のアイコンを提供するリソースライブラリです。すべてのページで活用されている<i class="fa-solid fa-graduation-cap" style="color: #d6037b;"></i>のような教帽のアイコンや、<i class="fa-solid fa-file-circle-plus" style="color: #d6037b;"></i>のようなアイコンがFont Awesomeから提供されています。公式サイトは<a href="https://fontawesome.com/" target="_blank" style="color: var(--main-color);">こちら</a>です。
+                <br><br>
+                &emsp;Font Awesomeを使用するには、HTMLの<code class="code">&lt;head&gt;</code>タグに以下のリンクを追加します。
+                <br>
+                <div class="code-container">
+                <div class="code-header">
+                <span class="filename">Font AwesomeをHTMLにリンクする</span>
+                <button class="copy-btn"  onclick="copySQL(this)">Copy</button>
+                </div>
+                <pre class="code-block line-numbers"><code class="language-html">&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"&gt;</code></pre>
+                </div>
+                <br>
+                &emsp;このリンクを追加した後、アイコンを表示したい場所に<code class="code">&lt;i&gt;</code>タグを使用します。クラス属性に<code class="code">fa-solid</code>と、表示したいアイコンの名前（例えば<code class="code">fa-heart</code>）を指定します。以下はハート<i class="fa-solid fa-heart" style="color: #d6037b;"></i>のアイコンの例です。
+                <br>
+                <div class="code-container">
+                <div class="code-header">
+                <span class="filename">Font Awesomeでアイコンを表示する</span>
+                <button class="copy-btn"  onclick="copySQL(this)">Copy</button>
+                </div>
+                <pre class="code-block line-numbers"><code class="language-html">&lt;i class="fa-solid fa-heart"&gt;&lt;/i&gt;</code></pre>
+                </div>
+                <br>
+                &emsp;CSSでアイコンの色やサイズを変更することもできます。
+                <br>
+                <div class="code-container">
+                <div class="code-header">
+                <span class="filename">Font Awesomeアイコンのスタイル指定</span>
+                <button class="copy-btn"  onclick="copySQL(this)">Copy</button>
+                </div>
+                <pre class="code-block line-numbers"><code class="language-css">i.custom-icon {
+    color: #d6037b;
+    font-size: 24px;
+}</code></pre>
+                </div>
+                <br>
+                &emsp;Googleフォントの公式サイト（https://fonts.google.com/）やFont Awesomeの公式サイト（https://fontawesome.com/）にアクセスすることで、多数のフォントやアイコンを閲覧できます。是非、自分好みのフォントやアイコンを探してみてください。
+            </p>
+            <h2 id="4.4">4.4&ensp;HTMLとCSSの応用例</h2>
+            <p>
+                &emsp;これまで学んだHTMLとCSSの知識を組み合わせることで、より複雑で視覚的に魅力的なWebページを作成できます。この章では、複数のセクションを使ったレイアウトや、複合的なスタイリングの例を紹介します。
+                <br><br>
+                &emsp;例えば、ポートフォリオサイトを作成する場合、以下のような構成が考えられます。
+                <br>
+                <div class="code-container">
+                <div class="code-header">
+                <span class="filename">ポートフォリオサイトの基本構造（HTML）</span>
+                <button class="copy-btn"  onclick="copySQL(this)">Copy</button>
+                </div>
+                <pre class="code-block line-numbers"><code class="language-html">&lt;div class="header"&gt;
+    &lt;h1&gt;私のポートフォリオ&lt;/h1&gt;
+    &lt;p&gt;私のプロジェクトをご覧ください&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="project"&gt;
+    &lt;h2&gt;プロジェクト1&lt;/h2&gt;
+    &lt;p&gt;このプロジェクトについての説明&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="project"&gt;
+    &lt;h2&gt;プロジェクト2&lt;/h2&gt;
+    &lt;p&gt;このプロジェクトについての説明&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+                <br>
+                &emsp;これに対応するCSSは以下のようになります。
+                <br>
+                <div class="code-container">
+                <div class="code-header">
+                <span class="filename">ポートフォリオサイトのスタイル（CSS）</span>
+                <button class="copy-btn"  onclick="copySQL(this)">Copy</button>
+                </div>
+                <pre class="code-block line-numbers"><code class="language-css">div.header {
+    background-color: #333;
+    color: white;
+    padding: 40px;
+    text-align: center;
+}
+
+div.project {
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 15px 0;
+    background-color: #f9f9f9;
+}
+
+div.project h2 {
+    color: #333;
+    font-size: 24px;
+}</code></pre>
+                </div>
+                <br>
+                &emsp;さらに、複数のクラスを組み合わせることで、より細かなコントロールができます。例えば、強調したいプロジェクトと通常のプロジェクトで異なるスタイルを適用したい場合は、HTMLに別のクラスを追加します。
+                <br>
+                <div class="code-container">
+                <div class="code-header">
+                <span class="filename">複数のクラスを使ったスタイリング（HTML）</span>
+                <button class="copy-btn"  onclick="copySQL(this)">Copy</button>
+                </div>
+                <pre class="code-block line-numbers"><code class="language-html">&lt;div class="project featured"&gt;
+    &lt;h2&gt;特別なプロジェクト&lt;/h2&gt;
+    &lt;p&gt;このプロジェクトは特に大切です&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+                <br>
+                &emsp;CSSではこのようにクラスを追加します。
+                <br>
+                <div class="code-container">
+                <div class="code-header">
+                <span class="filename">複数のクラスに対応するCSS</span>
+                <button class="copy-btn"  onclick="copySQL(this)">Copy</button>
+                </div>
+                <pre class="code-block line-numbers"><code class="language-css">div.featured {
+    background-color: #fff0b2;
+    border: 2px solid #d6037b;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}</code></pre>
+                </div>
+                <br>
+                &emsp;このように、HTMLとCSSを組み合わせることで、視覚的に整理され、かつ保守性の高いWebページを作成できます。divタグとspanタグ、そしてクラスセレクタを適切に使用することが、Webデザインの基本となります。
+            </p>
+            <h2><i class="fa-solid fa-graduation-cap" style="color: #d6037b;"></i>&ensp;演習4</h2>
+            &emsp;以下の内容で、簡易的なポートフォリオページを作成してみましょう。
+            <ul>
+                <li>ページの最上部に、背景色とテキストがあるヘッダーセクションを作成する</li>
+                <li>複数のプロジェクトセクションをdivタグで作成し、CSSで境界線と背景色を指定する</li>
+                <li>少なくとも1つのプロジェクトを「featured」クラスで特別にスタイリングする</li>
+                <li>Font Awesomeのアイコンを使用して、各プロジェクトの横にアイコンを表示する（例：プロジェクトの種類を示すアイコン）</li>
+                <li>Googleフォントを使用して、全体のフォントを統一する</li>
+            </ul>
+            <a style="font-size: large;" href="https://github.com/omuct-proken/lesson/blob/main/lecture/answers/4/4-4.css">CSSの答え</a>
+            <br>
+            <a style="font-size: large;" href="https://github.com/omuct-proken/lesson/blob/main/lecture/answers/4/4-4.html">HTMLの答え</a>
+        </section>
+        <section id="5">
+            <h1>5&ensp;Git Hubでの公開</h1>
+            <p>
+                &emsp;ここまでHTMLとCSSについて学んできて、簡単なWebページを作りました。しかし、作ったWebページは<span class="point">ローカル環境</span>（≒パソコンでしか見れない状態）にしか存在していません。これをインターネット上に公開する方法の一つが、<span class="point">GitHub Pages</span>を利用することです。GitHub Pagesは、GitHubが提供する無料の<span class="point">ホスティングサービス</span>で、リポジトリにあるHTMLファイルをWebサイトとして公開できます。まだ理解することは難しいかもしれませんが、触って慣れていってください。
+                <br>
+                &emsp;Git Hubは<a href="../lecture/lecture2.html/#3">第2回の講義</a>で紹介した通り、Gitと連携してソフトウェア開発のためのバージョン管理や、ソースコードの公開などの機能を提供してくれるシステムです。GitHubの機能の1つであるGitHub Pagesを利用することで、作成したWebページを簡単にインターネット上に公開できます。
+            </p>
+            <h2>5.1&ensp;リモートリポジトリの発行</h2>
+
+            <p>
+                &emsp;GitHubでは<span class="point">リモートリポジトリ</span>と呼ばれる箱を作成しそこに、ファイルをアップロードしていくことで、プロジェクトを管理しています。ＰＣのローカルストレージにあるリポジトリを<span class="point">ローカルリポジトリ</span>と呼び、GitHubなどインターネットワーク上のリポジトリを<span class="point">リモートリポジトリ</span>と呼びます。今からする作業のイメージとは、自分のPCの中のファイルをGitHubの中のリモートリポジトリにアップロードすることです。
+                <ol>
+                    <li>VS Codeの画面左側のバーにある<i class="fa-solid fa-code-branch" style="color: #d6037b;"></i>をクリック</li>
+                    <li><i class="fa-brands fa-github" style="color: #d6037b;"></i><span class="point">GitHubに公開</span>をクリック</li>
+                    <li>初回のみサインインが求められるので、許可してGitHubアカウントでログインしてください。signinを押すと、<span class="point">Visual Studio Codeで開く</span>のボタンが出てくるので、クリックしてください。</li>
+                    <li>VS Codeに戻ると、ウィンドウ上部にドロップボックスが表示されていると思うので、<span class="point">test</span>とリポジトリ名を入力し、<span class="point">Public to GitHub repository <i class="fa-brands fa-github" style="color: #d6037b;"></i>○○○</span>を選択してください。</li>
+                    <li>次のページはすべてチェックを入れて<span class="point">OK</span>をクリックしてください。</li>
+                    <li>ダイアログが表示されたら、<span class="point">Sign in with your browser</span>をクリックし、<span class="point">Authentication Succeeded</span>と表示されていれば完了です。</li>
+                </ol>
+            </p>
+            <h2>5.2&ensp;Git Hubでの公開</h2>
+            <p>
+                &emsp;まずは先ほど作成したリポジトリがGitHub上に公開できているかを確認します。
+                <ol>
+                    <li><a href="https://github.com/"><i class="fa-brands fa-github" style="color: #d6037b;"></i> GitHub</a> にアクセスしてください。</li>
+                    <li>画面左上の<i class="fa-solid fa-bars" style="color: #d6037b;"></i> ハンバーガーメニューをクリックして、<i class="fa-solid fa-book" style="color: #d6037b;"></i> Repositoriesを選択してください。</li>
+                    <li>作成したリポジトリが表示されるので、クリックして確認してください。</li>
+                </ol>
+            </p>  
+            <p>
+                &emsp;次に、GitHub Pagesを使ってWebページを公開してみましょう。
+                <ol>
+                    <li>リポジトリのトップページで、<i class="fa-solid fa-gears" style="color: #d6037b;"></i> Settingsをクリックしてください。</li>
+                    <li>左側のメニューから<i class="fa-solid fa-cubes" style="color: #d6037b;"></i> Pagesを選択してください。</li>
+                    <li><span class="point">Source</span>のセクションで、<span class="point">Branch</span>のドロップダウンメニューから<code class="code">main</code>を選択し、<span class="point">Save</span>をクリックしてください。</li>
+                    <li>数秒待つと、<span class="point">Your site is published at</span>の下にURLが表示されます。これがあなたのWebページのURLです。クリックしてアクセスしてみてください。</li>
+                </ol>
+            <p>&emsp;正しく設定できていれば、URLが<span class="point">https://あなたのユーザー名.github.io/test/main.html</span>にアクセスするとパソコンでもスマホでも画面が表示されます。反映には少し時間がかかることがあるので、もし表示されない場合も、あきらめずに時間をおいてみると表示されることがあります。</p>
+        </section>
+        <section id="6">
+            <h1>6&ensp;ポートフォリオについて</h1>
+            <p>
+                &emsp;これまで学んだHTML、CSSの知識を応用すると、情報系学生にとって非常に重要な<span class="point">ポートフォリオサイト</span> を作成することができます。このセクションでは、ポートフォリオとは何か、そしてどのように構築するかについて説明します。
+            </p>
+            <h2>6.1&ensp;ポートフォリオとは</h2>
+            <p>
+                &emsp;<span class="point">ポートフォリオ</span>とは、自分の成果物や実績をまとめた作品集です。英語でも同じ意味で使われ、本来は画家や映画製作者が自分の作品を見せるために用いるものでした。情報系学生にとっては、プログラミング経験、参加したプロジェクト、開発したアプリケーション、学習の成果などを示す<span class="point">自分のスキルを証明する手段</span>となります。
+                <ul>
+                    <li><span class="point">就職・採用選考</span>：企業はポートフォリオから候補者の技術レベルと実践的なスキルを評価します</li>
+                    <li><span class="point">インターンシップ応募</span>：事前に自分の実績を企業に示すことができます</li>
+                    <li><span class="point">学習成果の記録</span>：自分がどのような技術を学んだか、何を作ってきたかを整理・共有できます</li>
+                </ul>
+            </p>
+            <h2>6.2&ensp;情報系学生のポートフォリオに含めるべき項目</h2>
+            <p>
+                &emsp;ポートフォリオサイトの内容は人によっても様々ですが、一般的には下記の内容を含んでいるものが多いです。
+                <ul>
+                    <li><span class="point">プロフィール</span>：自己紹介、学歴、連絡先、SNSリンクなど</li>
+                    <li><span class="point">スキル</span>：プログラミング言語、フレームワーク、ツール、言語スキルなど</li>
+                    <li><span class="point">プロジェクト・作品</span>：実装したアプリケーション、Webサイト、その他の成果物</li>
+                    <li><span class="point">実績</span>：参加したコンテスト、受賞、認定資格など</li>
+                    <li><span class="point">ブログ・記事</span>：技術ブログ、学習記録、技術記事など（任意）</li>
+                </ul>
+            </p>
+            <h2>6.3&ensp;ポートフォリオの作成例</h2>
+            <p>
+                &emsp;過去この部活にいた先輩が作成したPortfolioの例をのせておきます。ネットで<a href="https://x.gd/nRZW8">高専生 Portfolio</a>などで検索してみるのもよいかもしれません。
+                <ul>
+                    <li><a href="https://s-ao213.github.io/portfolio/">先輩AのPortfolio</a></li>
+                    <li><a href="https://akino1729.github.io/portfolio/index/index.html">先輩BのPortfolio</a></li>
+                    <!-- <li><a href="">先輩CのPortfolio</a></li> -->
+                </ul>
+            </p>
+            <h2><i class="fa-solid fa-graduation-cap" style="color: #d6037b;"></i>&ensp;演習5</h2>
+            <p>
+                &emsp;自分のPortfolioを作って共有してみましょう。
+            </p>
+        </section>
+    
+</body>
+<script src="../script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</html>

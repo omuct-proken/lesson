@@ -352,7 +352,14 @@ h3 {
   text-align: center;
 }
 
+.no-style * {
+  all: unset;
+}
 
+.no-style h1::before,
+.no-style h1::after {
+    content: none;
+}
 
 section {
   margin-bottom: 40px;
@@ -657,3 +664,12 @@ ul li.drill::before {
         padding-left: 15px;
     }
 }
+
+/* VSCode風 CSS シンタックスハイライト */
+code.language-css .token.selector { color: #ff9100; }
+code.language-css .token.property { color: #9cdcfe; }
+code.language-css .token.string { color: #ce9178; }
+code.language-css .token.number { color: #b5cea8; }
+code.language-css .token.unit { color: #b5cea8; }
+code.language-css .token.comment { color: #34a400; }
+code.language-css .token.punctuation { color: #d4d4d4; }
