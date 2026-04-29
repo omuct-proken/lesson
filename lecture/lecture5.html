@@ -17,21 +17,7 @@
     <script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
     </head>
 <body>
-    <!-- ハンバーガーメニュー -->
-    <div class="openbtn"><span></span><span></span><span></span></div>
-    <nav id="g-nav">
-        <div id="g-nav-list">
-            <ul>
-                <li><a href="#1st">1 本講義の内容</a></li>
-                <li><a href="#2nd">2 準備と復習</a>
-                    <ul>
-                        <li><a href="#2.1">2.1 学修の準備</a></li>
-                    </ul>
-                </li>
-
-            </ul>
-        </div>
-    </nav>
+        <!-- コピーボタン -->
     <script>
     function copySQL(button) {
         // このボタンが属する code-container を取得
@@ -51,10 +37,537 @@
         });
     }
     </script>
+    <!-- ハンバーガーメニュー -->
+    <div class="openbtn"><span></span><span></span><span></span></div>
+    <nav id="g-nav">
+        <div id="g-nav-list">
+            <ul>
+                <li><a href="#1">1 本日の内容</a></li>
+                <li><a href="#2">2 準備と復習</a></li>
+                <li><a href="#3">3 チーム開発の流れ</a>
+                    <ul>
+                        <li><a href="#3.1">3.1 要件定義</a></li>
+                        <li><a href="#3.2">3.2 設計</a></li>
+                        <li><a href="#3.3">3.3 製作</a></li>
+                        <li><a href="#3.4">3.4 テスト</a></li>
+                        <li><a href="#3.5">3.5 実装</a></li>
+                    </ul>
+                </li>
+                <li><a href="#4">4 GitHubでのチーム開発</a>
+                    <ul>
+                        <li><a href="#4.1">4.1 リポジトリの作成と設定</a></li>
+                        <li><a href="#4.2">4.2 ブランチについて</a></li>
+                        <li><a href="#4.3">4.3 ブランチの作成とpush</a></li>
+                    </ul>
+                </li>
+                <li><a href="#5">5 プルリクエストとレビュー</a>
+                    <ul>
+                        <li><a href="#5.1">5.1 プルリクエストとは</a></li>
+                        <li><a href="#5.2">5.2 プルリクエストの作成方法</a></li>
+                        <li><a href="#5.3">5.3 コードレビューの流れ</a></li>
+                    </ul>
+                </li>
+                <li><a href="#6">6 Issueの立て方</a>
+                    <ul>
+                        <li><a href="#6.1">6.1 Issueの役割</a></li>
+                        <li><a href="#6.2">6.2 Issueの作成と管理</a></li>
+                    </ul>
+                </li>
+                <li><a href="#7">7 GitHubProjectについて</a>
+                    <ul>
+                        <li><a href="#7.1">7.1 プロジェクトボードとは</a></li>
+                        <li><a href="#7.2">7.2 プロジェクトの活用</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <main>
+        <section id="1">
+            <h1>1&ensp;本日の内容</h1>
+            <p>
+                &emsp;今回は<span class="point">チーム開発におけるGitHubの使い方</span>について学びます。プロコンや実際のソフトウェア開発では、複数人で協力してプロジェクトを進めることが多くあります。その時に活躍するのが<span class="point">GitHub</span>です。前回までの講座でGitHubに触れましたが、今回はより詳しくチーム開発の中でどのようにGitHubを使うのかを解説します。
+            </p>
+        </section>
+        <section id="2">
+            <h1>2&ensp;準備と復習</h1>
+            <p>
+                &emsp;この講座では、前回の講座<a href="lecture4.html#5">「第4回 HTMLとCSS」</a>で学んだGitHubの基本が理解していることを前提としています。<span class="point">コミット</span>、<span class="point">push</span>、<span class="point">pull</span>といった基本的な概念はこの講座でもう一度詳しく説明します。
+                <br>
+                &emsp;今回の学習では、実際にチームで作業することを想定した演習を行います。可能であれば、2～3人のグループで学習することをお勧めします。グループがない場合は、1人で複数のフォルダを使ってシミュレーションすることも可能です。
+                <div class="hint">
+                    <h4><i class="fa-solid fa-lightbulb" style="color: #d6037b;"></i>チーム開発について</h4>
+                    <p>
+                        &emsp;チーム開発とは、複数のプログラマーが協力して1つのプロジェクトを進めることです。プロコンでは「課題部門」と「自由部門」がありますが、どちらでも複数人で開発することがあります。特に大型プロジェクトでは、異なる機能を異なる人が担当することで開発効率を高めることができます。しかし、複数人で開発するとコードの競合が発生したり、誰が何をしているかわからなくなったりすることがあります。これを防ぐためにGitHubなどのバージョン管理ツールが必要になるのです。
+                    </p>
+                </div>
+            </p>
+        </section>
+        <section id="3">
+            <h1>3&ensp;チーム開発の流れ</h1>
+            <p>
+                &emsp;高専プロコンにでるためにはただプログラムを書くだけでは不十分です。段階的に進めることで、バグを減らし、効率的に開発を進めることができます。一般的なソフトウェア開発では、以下の5つのステップを踏みます。
+                <br>
+                <span class="point">要件定義 → 設計 → 製作 → テスト → 実装</span>
+                <br>
+                &emsp;これらの各段階では異なるタスクが行われ、段階ごとに関わる人間も異なります。今回ではプロ研ではどのように開発を進めているか、それぞれについて詳しく説明します。
+            </p>
+            <h2 id="3.1">3.1&ensp;要件定義</h2>
+            <p>
+                &emsp;要件定義とは、<span class="point">作成するシステムやアプリケーションが何をすべきか、どんな機能を持つべきかを明確にする段階</span>です。プロコンでいえば、「課題部門であればお題に沿った案を考える」「自由部門であれば身近な問題を解決するシステムを企画する」段階に相当します。
+                <br>
+                &emsp;重要なのは、この段階で<span class="point">ペルソナ</span>を決めることです。ペルソナとは、<span class="point">あなたのシステムやアプリケーションを使う「ユーザー像」を具体化したもの</span>です。例えば、「高校生のための学習支援アプリ」であれば、ペルソナは「数学が苦手な高校1年生」かもしれません。ペルソナを決めることで、ユーザーの視点に立って、本当に必要な機能や使いやすさを考えることができます。このペルソナを決める作業は具体的であればあるほど良いです。
+                <br>
+                &emsp;今回はいきなりアプリの話をしてもわかりにくいので、カレーを作るという例で考えてみましょう。カレーを作るとき、まずは「誰のために作るのか」を考えます。例えば、「辛いものが苦手な子供のためのカレー」なのか、「スパイシーなカレーが好きな大人のためのカレー」なのかによって、必要な材料や調理方法が変わってきます。これがペルソナを決めるということです。
+                <br>
+                <h3>ペルソナの例</h3>
+                <ul>
+                    <li>年齢：小学校低学年（2年生）</li>
+                    <li>性別：女性</li>
+                    <li>特徴：家では甘口のカレーを食べている。野菜全般があまり好きじゃない。お肉は大好き。歯の生え変わりのタイミングで硬いものが噛めず、食欲が低下している。</li>
+                    <li>課題：給食で出る少し辛いカレーを食べられるようになりたい。</li>
+                </ul>
+                &emsp;ペルソナが決まったらそのペルソナのために、どんな機能が必要かを考えていきます。例えば上記のペルソナであれば、「子供向けの中辛カレー」「野菜は小さく切る」「お肉は柔らかくすじの少ないものを選ぶ」などが必要かもしれません。このように、ペルソナに合わせてアイデアをどんどん具体化していくことが大切です。
+                <br>
+                &emsp;この段階では、まだプログラムを書きません。ホワイトボードに図を描いたり、紙に箇条書きで機能を列挙したりして、アイデアを整理します。プロコンでは、予選提出資料にこのような要件定義の内容をまとめることが多いので、この段階を丁寧に進めることが重要です。AIなどもうまく活用してペルソナを作成させましょう。
+            </p>
+            <h2 id="3.2">3.2&ensp;設計</h2>
+            <p>
+                &emsp;設計とは、<span class="point">要件定義で決めた機能を、実装するための具体的な技術で「どのように実現するか」を計画する段階</span>です。この段階で以下のようなことを決めます。
+                <br>
+                <h3>技術選定</h3>
+                <p>
+                    &emsp;どんなマイコン（ハードウェア）や開発環境を使えば実装できるか。例えば、IoTシステムであればArduinoやRaspberry Piを使うのか、それともPythonで実装するのか、など。
+                </p>
+                <h3>詳細設計</h3>
+                <p>
+                    データベース（DB）の設計、画面遷移図の作成、APIの仕様定義など。プロコンであれば、使用するプログラミング言語、ライブラリ、データベースの構成などを決めます。
+                </p>
+                &emsp;これらの内容は、プロコンの予選提出資料に含まれることが多く、評価の対象になります。設計がしっかりしていないと、製作段階で問題が生じたり、個々のプログラマーが異なる方針で進めてしまったりすることになります。
+                <br>
+                &emsp;この段階も、実際にコードは書きません。<span class="point">ドキュメント、図、仕様書などの形式で、実装方針を共有可能な形にまとめます。</span>
+                <br>
+                &emsp;先ほどのカレーの例であれば、「どんな材料を使うか」「どんな調理方法を使うか」「どんな盛り付けにするか」などが設計にあたります。例えば、「辛いものが苦手な子供のためのカレー」を作る場合、材料としては「辛さを抑えるための牛乳やヨーグルト」「野菜を小さく切るための包丁」「お肉を柔らかくするための圧力鍋」などが必要になるかもしれません。また、調理方法としては「まず野菜とお肉を炒めてから、牛乳やヨーグルトを加えて煮込む」という手順が考えられます。
+            </p>
+            <h2 id="3.3">3.3&ensp;製作</h2>
+            <p>
+                &emsp;製作とは、<span class="point">要件定義と設計をもとに、実際にプログラムを書く段階</span>です。複数の開発者が異なる機能を分担して実装します。この段階で初めてGitHubが活躍します。なぜなら、複数の開発者が同時に異なるファイルを編集する場合、ファイルの衝突を避ける必要があるからです。
+                <br>
+                &emsp;ここで重要なのが、<span class="point">誰が見てもわかるコード</span>を意識して作成することです。プロコンでは、ソースコードも採点対象に入ります。変数名を意味のあるものにする、コメントを適切に入れる、インデント（字下げ）を統一する、など、「コードの可読性」を高めることが大切です。
+                <br>
+                <h3>コードの可読性を高めるコツ</h3>
+                <ul>
+                    <li>変数名は<code class="code">x</code>や<code class="code">tmp</code>ではなく、何を表しているか明確な名前を付ける</li>
+                    <li>複雑なロジックには丁寧にコメントを入れる</li>
+                    <li>インデントを統一し、機械的に見やすくする</li>
+                    <li>関数は1つの機能だけを行うよう設計する</li>
+                    <li>こまめに<code class="code">push</code>する</li>
+                </ul>
+                <p>
+                    &emsp;カレー作りでも、みんなが共通認識として「野菜は小さく切る」と決めていても、みじん切りしたり薄切りにしたりする人がいると、味や食感がバラバラになります。同様に、コードも書き方もバラバラだと、可読性が低下します。だからこそ、コードの可読性を高める作業が重要なのです。
+                </p>
+            </p>
+            <h2 id="3.4">3.4&ensp;テスト</h2>
+            <p>
+                &emsp;テストとは、<span class="point">作成したシステムが要件通りに動くかどうかを確認する段階</span>です。この段階では、単に「動く」ことを確認するのではなく、<span class="point">「仕様書」</span>を用意し、それに基づいてテストを行う必要があります。カレー作りでいうところの「味見」にあたります。
+                <br>
+                &emsp;例えば、「ユーザーが3つまでファイルアップロードできる機能」という要件があったなら、以下のようなテストを行います。
+                <ul>
+                    <li>ファイル1つをアップロードできるか</li>
+                    <li>ファイル3つをアップロードできるか</li>
+                    <li>ファイル4つをアップロード しようとした時、エラーが表示されるか</li>
+                    <li>大容量ファイルをアップロードした時、正しく処理されるか</li>
+                </ul>
+                <br>
+                &emsp;プロコンでは、大会当日に実際にプレゼンテーションをしながらシステムを動かします。その時に予期しないバグが出ないよう、事前にこのようなテストを綿密に行う必要があります。
+            </p>
+            <h2 id="3.5">3.5&ensp;実装</h2>
+            <p>
+                &emsp;実装とはテストで見つかった問題を修正し、システムを完成させる段階です。バグが見つかれば修正し、性能が不足していれば改善しユーザーが使いやすくなるよう調整します。プロコンでは、大会当日に向けて最終調整を行う段階です。
+                <br>
+                &emsp;チーム開発では、この段階でも複数人が協力して修正を進めます。GitHubを使うことで、誰が何を修正しているか、修正履歴はどうなっているかを追跡することができます。
+            </p>
+        </section>
+        <section id="4">
+            <h1>4&ensp;GitHubでのチーム開発</h1>
+            <p>
+                &emsp;前の章で、ソフトウェア開発の5つのステップを説明しました。次に、これらのステップをGitHubを使ってどのように進めるかについて説明します。特に「製作」段階で、複数人がどのようにコードを共有し、管理するかについて説明していきます。
+            </p>
+            <h2 id="4.1">4.1&ensp;リポジトリの作成と設定</h2>
+            <p>
+                &emsp;チーム開発を始めるには、まず<span class="point">プロジェクトのリーダー（リーダー権限を持つ人）が中央のリポジトリ（プロジェクトのデータベース）をGitHub上に作成します</span>。このリポジトリには、すべてのチームメンバーがアクセスしてコードの変更を共有します。複数人で行う場合は1人リーダー役を決めて進めてください。
+                <br>
+                <h3>リポジトリを作成する流れ</h3>
+                <ol>
+                    <li>GitHubにログインし、画面右上の<i class="fa-solid fa-plus" style="color: #d6037b;"></i>ボタンから「<span class="point">New repository</span>」を選択</li>
+                    <li><span class="point">Repository name</span>に、プロジェクト名（例：<code class="code">procon-2026</code>）を入力</li>
+                    <li><span class="point">Description</span>にプロジェクトの説明を入力（任意）</li>
+                    <li><span class="point">「Add a README file」</span>にチェックを入れると、READMEファイルが自動生成される</li>
+                    <li><span class="point">「Create repository」</span>ボタンをクリック</li>
+                </ol>
+                &emsp;READMEファイルは、プロジェクトの概要や使い方を説明するために作成するドキュメントです。プロコンでは、予選提出資料にREADMEの内容も含まれることが多いので、ここでしっかりと書いておくことが大切です。（現状は必要ありません。）
+                <br>
+                &emsp;リポジトリが作成されたら、次に<span class="point">チームメンバーを追加</span>する必要があります。これを「Collaborator設定」と呼びます。
+                <br>
+                <h3>Collaboratorを追加する流れ</h3>
+                <ol>
+                    <li>リポジトリのページで、<span class="point">「Settings」</span>タブをクリック</li>
+                    <li>左側のメニューから<span class="point">「Collaborators」</span>を選択</li>
+                    <li><span class="point">「Add people」</span>ボタンをクリック</li>
+                    <li>チームメンバーのGitHubユーザー名またはメールアドレスを入力</li>
+                    <li>相手がCollaborator招待を承認すれば、チームメンバーがリポジトリにアクセスできるようになる</li>
+                </ol>
+                &emsp;Collaborator設定が完了したら、各チームメンバーは、このリポジトリを自分のパソコンにダウンロードする必要があります。これを<span class="point">クローン</span>と呼びます。パソコンのターミナルを開き、以下のコマンドを実行してください。
+                <br><br>
+                <div class="code-container">
+                <div class="code-header">
+                <span class="filename">リポジトリをクローンする（コマンドプロンプト）</span>
+                <button class="copy-btn"  onclick="copySQL(this)">Copy</button>
+                </div>
+                <pre class="code-block line-numbers"><code class="language-markup">git clone https://github.com/[ユーザー名]/[リポジトリ名].git</code></pre>
+                </div>
+                <br>
+                &emsp;このコマンドを実行すると、リポジトリがあなたのパソコンにダウンロードされます。以降、このダウンロードされたフォルダが<span class="point">「ローカルリポジトリ」</span>となり、ここで作業を行います。
+            </p>
+            <h2 id="4.2">4.2&ensp;ブランチについて</h2>
+            <p>
+                &emsp;複数の開発者が同じリポジトリで作業する場合、全員がメインのコード（通常は<code class="code">main</code>または<code class="code">master</code>ブランチ）に直接書き込みを行うと、コンフリクト（衝突）が発生しやすくなります。これを防ぐために、<span class="point">ブランチ</span>という機能を使います。
+                <br>
+                &emsp;<span class="point">ブランチとは、メインのコードから分岐した「独立した作業用の領域」</span>です。本番環境のメインのコードに影響を与えることなく、自分のブランチで新しい機能を開発できます。
+                <br><br>
+                <div style="text-align: center; margin: 20px 0;">
+                    <img style="width: 80%;" src="../img/lecture5/branch.png" alt="ブランチの概念図">
+                </div>
+                <br>
+                <h3>チーム開発における一般的なブランチの構成</h3>
+                <ul>
+                    <li><code class="code">main</code>（または<code class="code">master</code>）ブランチ：本番環境のコード。安定して動作することが保証されている。</li>
+                    <li><code class="code">develop</code>ブランチ：開発中のコード。<code class="code">main</code>にマージする前の開発用ブランチ</li>
+                    <li>機能ブランチ（例：<code class="code">feature/login</code>、<code class="code">feature/database</code>）：特定の機能を開発するためのブランチ。各開発者が異なる機能ブランチで作業する</li>
+                    <li>修正ブランチ（例：<code class="code">fix/bug-001</code>）：バグを修正するためのブランチ</li>
+                </ul>
+                <br>
+                &emsp;プロコン向けには、以下のようなシンプルなブランチ構成でも十分です。
+                <ul>
+                    <li><code class="code">main</code>：完成したコード</li>
+                    <li>個人ブランチ（例：<code class="code">feature/tanaka-ui</code>、<code class="code">feature/suzuki-backend</code>）：各メンバーが担当する機能を開発するためのブランチ</li>
+                </ul>
+            </p>
+            <h2 id="4.3">4.3&ensp;ブランチの作成とpush</h2>
+            <p>
+                &emsp;では、実際にブランチを作成し、そこに自分のコードをpushしてみましょう。VS Codeとコマンドプロンプトを使います。
+                <br><br>
+                <strong>ステップ1：ローカルリポジトリをVS Codeで開く</strong>
+                <br>
+                &emsp;前章で紹介したクローンコマンドを実行したフォルダを、VS Codeで開きます。左側のエクスプローラにフォルダが表示されます。
+                <br><br>
+                <strong>ステップ2：ブランチを作成する</strong>
+                <br>
+                &emsp;VS Codeの左下に<i class="fa-solid fa-code-branch" style="color: #d6037b;"></i><span class="point">ソース管理</span>のタブがあります。そこから、現在のブランチ（通常は<code class="code">main</code>）が表示されているをクリックします。すると、<span class="point">新しいブランチの作成</span>という選択肢が出るので、クリックしてください。
+                <br>
+                &emsp;ブランチの名前を入力するダイアログが出ます。ここで、自分が開発する機能に合わせたブランチ名を入力します。例えば、ログイン機能を担当するなら<code class="code">feature/login</code>、UIを担当するなら<code class="code">feature/ui</code>などです。
+                <div class="hint">
+                    <h4><i class="fa-solid fa-lightbulb" style="color: #d6037b;"></i>ブランチ名の命名規則</h4>
+                    <p>
+                        &emsp;ブランチ名は、何の機能を開発しているか一目瞭然な名前を付けることが大切です。例えば<code class="code">feature/login</code>のように、先頭に「種類」を付け、スラッシュの後に「機能名」を付けるのが一般的です。
+                        <br>
+                        <ul>
+                            <strong>例</strong>
+                            <li><code class="code">feature/user-authentication</code>：ユーザー認証機能</li>
+                            <li><code class="code">feature/database-connection</code>：データベース接続機能</li>
+                            <li><code class="code">fix/null-pointer-error</code>：Nullポインタエラーの修正</li>
+                            <li><code class="code">docs/readme-update</code>：READMEの更新</li>
+                        </ul>
+                    </p>
+                </div>
+                <br>
+                <strong>ステップ3：コードを編集する</strong>
+                <br>
+                &emsp;新しく作成したブランチで、必要なファイルを編集します。例えば、ログイン機能のHTMLやJavaScriptを作成したり、修正したりします。今回は何でも構わないのでファイルを作成して何か書いて保存してみてください。
+                <br><br>
+                <strong>ステップ4：コミットする</strong>
+                <br>
+                &emsp;<span class="point">コミットとは、自分の変更内容をローカルリポジトリに記録する作業</span>です。VS Codeの<i class="fa-solid fa-code-branch" style="color: #d6037b;"></i><span class="point">ソース管理</span>タブで、変更したファイルが表示されます。
+                <br>
+                &emsp;コミットメッセージを入力するテキストボックスに、何を変更したかを簡潔に書きます。例えば「ログイン画面のUIを完成させた」のような内容です。その後、「Commit」ボタンをクリックします。
+                <br><br>
+                <strong>ステップ5：pushする</strong>
+                <br>
+                &emsp;<span class="point">Pushとは、ローカルリポジトリの変更をリモートリポジトリ（GitHub上のリポジトリ）にアップロードする作業</span>です。VS Codeの<i class="fa-solid fa-code-branch" style="color: #d6037b;"></i><span class="point">ソース管理</span>タブから、<i class="fa-solid fa-arrow-up" style="color: #d6037b;"></i>の「Push」ボタンをクリックします。
+                <br>
+                &emsp;初めてこのブランチをpushする場合、「Publish Branch」という表示が出ます。これをクリックすると、新しいブランチがGitHub上に作成され、あなたのコミットがアップロードされます。
+                <br>
+                &emsp;以降は、コードを編集してコミット、pushを繰り返します。
+            </p>
+            <h2><i class="fa-solid fa-graduation-cap" style="color: #d6037b;"></i>演習１ : ブランチの作成とpush</h2>
+            <p>
+                &emsp;実際にチーム開発をシミュレートしてみましょう。先ほどはVS Codeを用いて以下のステップを行いましたが、3番目の手順から<span class="point">コマンドを用いて実行</span>してください。VS Codeでの操作を覚えることも大切ですが、コマンドでの操作も覚えておくと、より柔軟にGitを使いこなせるようになります。必要になるコマンドは自分で調べてみましょう。わからない場合は部長や先輩に聞いてみてください。コマンドはVS Codeのターミナルから実行できます。
+                <ol>
+                    <li>グループで1つのGitHubリポジトリを作成する（リーダーが作成）</li>
+                    <li>他のメンバーをCollaboratorとして追加する</li>
+                    <li>各メンバーは、リポジトリをクローンする</li>
+                    <li>各メンバーは、異なるブランチを作成する（例：<code class="code">feature/member-a</code>、<code class="code">feature/member-b</code>）</li>
+                    <li>各自のブランチで、簡単なHTMLファイルを作成する（例：自己紹介ページ）</li>
+                    <li>ファイルをコミットし、pushする</li>
+                    <li>GitHub上で、複数のブランチが存在することを確認する</li>
+                </ol>
+            </p>
+        </section>
+        <section id="5">
+            <h1>5&ensp;プルリクエストとレビュー</h1>
+            <p>
+                &emsp;前の章で、各メンバーが自分のブランチで作業し、それをpushしました。次のステップは、これらのブランチを「main」ブランチにマージ（統合）することです。しかし、いきなりマージするのではなく、<span class="point">プルリクエスト</span>という機能を使ってコードのレビューを行うのが一般的です。
+            </p>
+            <h2 id="5.1">5.1&ensp;プルリクエストとは</h2>
+            <p>
+                &emsp;<span class="point">プルリクエスト（Pull Request, PR）とは、「自分のブランチの変更を、メインブランチにマージしてもらうための提案」</span>です。プルリクエストを作成すると、チームの他のメンバーがあなたのコードを見て、「ここはこうした方がいいんじゃないか」というコメントをつけたり、承認したりすることができます。プルリクエストを使うことで、以下のようなメリットがあります。
+                <ul>
+                    <li><span class="point">コードの品質が上がる</span>
+                        <br>複数の人がコードをレビューするので、バグや改善点が見つかりやすい</li>
+                    <li><span class="point">チーム全体の知識が共有される</span>
+                        <br>
+                        他の人のコードを見ることで、新しい実装方法やベストプラクティスを学べる</li>
+                    <li><span class="point">意図しない変更が防げる</span>
+                        <br>重大なミスを持った変更がメインブランチに入ることがない</li>
+                    <li><span class="point">変更履歴が残る</span>
+                        <br>「なぜこの変更をしたのか」という議論がプルリクエストに記録される</li>
+                </ul>
+            </p>
+            <h2 id="5.2">5.2&ensp;プルリクエストの作成方法</h2>
+            <p>
+                &emsp;では、実際にプルリクエストを作成してみましょう。
+                <br><br>
+                <strong>ステップ1：先ほど作成したGitHub上のリポジトリを開く</strong>
+                <br>
+                &emsp;ブランチを<code class="code">push</code>すると、GitHub上のリポジトリのページに<span class="point">Compare & pull request</span>というボタンが出ることがあります。これをクリックすれば、プルリクエスト作成画面に進みます。
+                <br>
+                &emsp;もし出ていない場合は、画面上部の<span class="point">Pull requests</span>タブをクリックし、<span class="point">New pull request</span>ボタンをクリックします。その後、以下のステップに進みます。
+                <br><br>
+                <strong>ステップ2：ブランチを選択する</strong>
+                <br>
+                &emsp;<span class="point">base</span>にはマージ先のブランチ（通常は<code class="code">main</code>）、<span class="point">compare</span>には自分のブランチを選択します。
+                <br><br>
+                <strong>ステップ3：プルリクエストの説明を書く</strong>
+                <br>
+                &emsp;タイトルには、何をしたかを簡潔に（例：「Add login page UI」）。説明には、より詳しく何が変わったか、なぜこの変更が必要だったのか、を書きます。
+                <br><br>
+                <div class="code-container">
+                <div class="code-header">
+                <span class="filename">プルリクエストの説明の例</span>
+                <button class="copy-btn"  onclick="copySQL(this)">Copy</button>
+                </div>
+                <pre class="code-block line-numbers"><code class="language-markup"># タイトル：ログインボタンの修正 #3
+## 概要
+Issue #3 で報告されたログインボタンの問題を修正しました。
 
-    <h1></h1>
+## 変更内容
+    - login.js にイベントリスナーを追加
+    - ボタンのクリックイベントを正しく処理するように修正
+    - エラー処理を追加
 
+## 影響範囲
+    - ログインページのみに影響
+    - 他の機能への影響なし
+
+## テスト結果
+
+    ✅ ログインボタンクリックでフォームが送信される
+    ✅ バリデーションが正しく機能
+    ✅ エラー時のフィードバックが表示される
+
++ loginButton.addEventListener('click', handleLogin);
++ function handleLogin(event) {
++ event.preventDefault();
++ // ログイン処理
++ }
+- // TODO: ログイン処理を実装
+## 関連Issue
+
+Closes #3</code></pre>
+                </div>
+                <br>
+                <strong>ステップ4：プルリクエストを作成する</strong>
+                <br>
+                &emsp;<span class="point">Create pull request</span>ボタンをクリックすれば、プルリクエストが作成されます。
+            </p>
+            <h2 id="5.3">5.3&ensp;コードレビューの流れ</h2>
+            <p>
+                &emsp;プルリクエストが作成されたら、チームメンバーがコードをレビューします。
+                <br>
+                <strong>レビュアーがすること</strong>
+                <ol>
+                    <li>プルリクエストのページで、変更内容を確認する</li>
+                    <li><span class="point">Files changed</span>タブで、変わったファイルと行を確認する</li>
+                    <li>問題がある行にカーソルを当てると、コメントボタンが出てくる。クリックしてコメントを書く</li>
+                    <li>すべてのコメントが終わったら、<span class="point">Review changes</span>ボタンから<span class="point">「Approve」（承認）または「Request changes」（変更を要求）</span>を選択する</li>
+                </ol>
+                <strong>プルリクエスト作成者がすること</strong>
+                <ol>
+                    <li>レビュアーのコメントを確認する</li>
+                    <li>指摘されたバグを修正したり、改善提案に応じたりする</li>
+                    <li>修正したら、ローカルリポジトリでコミットして <code class="code">push</code>する（すると、プルリクエストが自動的に更新される）</li>
+                    <li>すべてのコメントに対応したら、<span class="point">「Resolve」</span>をクリックしてコメントを解決する</li>
+                </ol>
+                &emsp;すべてのレビュアーが承認し、すべてのコメントが解決されたら、<span class="point">「Merge pull request」ボタンをクリックしてマージします</span>。これで、自分のブランチの変更が<code class="code">main</code>ブランチに統合されます。
+                <br><br>
+                <div class="hint">
+                    <h4><i class="fa-solid fa-lightbulb" style="color: #d6037b;"></i>レビューコメントの書き方</h4>
+                    <p>
+                        &emsp;レビューコメントを書く時は、相手を傷つけないように気をつけましょう。「ここがダメ」と指摘するのではなく、「ここはこうした方が読みやすくなるかもしれません」という提案的な書き方をすることが大切です。喧嘩のもとになります。
+                        <br>
+                        <strong>悪い例：</strong> 「このコードは下手です」
+                        <br>
+                        <strong>良い例：</strong> 「このロジックは、こうすればもっと効率的になるかもしれません」
+                    </p>
+                </div>
+            </p>
+            <h2><i class="fa-solid fa-graduation-cap" style="color: #d6037b;"></i>演習2 : プルリクエストとレビュー</h2>
+            <p>
+                &emsp;ここまでで作成したプルリクエストを実際に使ってみましょう。
+                <ol>
+                    <!-- <li>各メンバーは、自分のブランチで作成したファイルをさらに修正する（例えば、HTMLにCSSを追加するなど）</li>
+                    <li>修正をコミットして<code class="code">push</code>する</li>
+                    <li>GitHub上でプルリクエストを作成する</li> -->
+                    <li>他のメンバーが、そのプルリクエストをレビューし、コメントを付ける</li>
+                    <li>プルリクエスト作成者が、コメントに対応する（修正またはコメントへの返答）</li>
+                    <li>最後に、プルリクエストをマージする</li>
+                    <li>すべてのメンバーは、マージ後に<code class="code">pull</code>を実行して、<code class="code">main</code>ブランチの最新のコードを取得する</li>
+                </ol>
+                <span class="point">pull</span>とは、リモートリポジトリの最新の変更をローカルリポジトリに反映させることです。VS Codeの<i class="fa-solid fa-code-branch" style="color: #d6037b;"></i><span class="point">ソース管理</span>タブから、<i class="fa-solid fa-arrow-down" style="color: #d6037b;"></i>の「Pull」ボタンをクリックして実行します。
+            </p>
+        </section>
+        <section id="6">
+            <h1>6&ensp;Issueの立て方</h1>
+            <p>
+                &emsp;プルリクエストはコードの変更を提案する機能でしたが、<span class="point">Issue</span>は「何をすべきか」「バグが見つかった」という課題や問題を報告・管理するための機能です。
+            </p>
+            <h2 id="6.1">6.1&ensp;Issueの役割</h2>
+            <p>
+                &emsp;<span class="point">Issueとは、プロジェクトに関する課題、バグ報告、新機能の提案などを記録するための機能</span>です。チーム開発では、これを<span class="point">タスク管理</span>に使います。
+                <br><br>
+                <h3>Issueの使用例</h3>
+                <ul>
+                    <li>「ログイン画面でエラーが出ている（バグ報告）」</li>
+                    <li>「データベースの接続機能を実装する必要がある（新機能提案）」</li>
+                    <li>「テスト環境を構築する（タスク）」</li>
+                    <li>「UIデザインを改善する必要がある（改善提案）」</li>
+                </ul>
+                <br>
+                &emsp;各Issueは1つの課題に対応し、<code class="code">Open</code>（解決待ち）または<code class="code">Closed</code>（解決済み）の状態を持ちます。チームメンバーは、各自の担当するIssueに取り組み、解決したら<code class="code">Close</code>します。
+            </p>
+            <h2 id="6.2">6.2&ensp;Issueの作成と管理</h2>
+            <p>
+                <h3>Issueを作成する方法</h3>
+                <ol>
+                    <li>GitHubのリポジトリページで<span class="point">Issues</span>タブをクリック</li>
+                    <li><span class="point">New issue</span>ボタンをクリック</li>
+                    <li>タイトルと説明を入力する</li>
+                    <li><span class="point">Labels</span>で、このIssueの種類を選択（<code class="code">bug</code>、<code class="code">enhancement</code>、<code class="code">documentation</code>など）</li>
+                    <li><span class="point">Assignees</span>で、このIssueを担当するメンバーを選択</li>
+                    <li><span class="point">Create issue</span>ボタンをクリック</li>
+                </ol>
+                <h3>Issueの説明を書く時のコツ</h3>
+                <ul>
+                    <li>何が問題なのか、明確に説明する</li>
+                    <li>再現手順を書く（バグの場合）：「1. ログイン画面を開く 2. メールアドレス欄に『abc』と入力 3. ログインボタンをクリック → エラーが出る」など</li>
+                    <li>期待される動作と実際の動作を書く</li>
+                    <li>スクリーンショットやエラーメッセージを貼り付ける</li>
+                </ul>
+                <h3>Issueを管理する方法</h3>
+                <ol>
+                    <li>Issueが完了したら、Issueページの<span class="point">Close issue</span>ボタンをクリック</li>
+                    <li>複数のIssueを一度に確認するには、<span class="point">Issues</span>タブで<span class="point">Labels</span>や<span class="point">Assignees</span>でフィルタリングする</li>
+                    <li>Issueの優先度を決めるために、<code class="code">Priority</code>というラベルを追加することもできる</li>
+                </ol>
+                <div class="hint">
+                    <h4><i class="fa-solid fa-lightbulb" style="color: #d6037b;"></i>Issueをプルリクエストに紐づける</h4>
+                    <p>
+                        &emsp;Issueを解決するためのコミットやプルリクエストを作成した場合、プルリクエストの説明に<code class="code">Closes #123</code>（#123はIssue番号）と書くと、プルリクエストがマージされた時に自動的にIssueがCloseされます。これにより、Issueとプルリクエストの関連性が明確になります。
+                    </p>
+                </div>
+            </p>
+            <h2><i class="fa-solid fa-graduation-cap" style="color: #d6037b;"></i>演習3 : Issueの作成と管理</h2>
+            <p>
+                &emsp;演習1のプロジェクトで、Issueを作成してみましょう。今回は中身は何でも構いません。
+                <ol>
+                    <li>Issueを作成する</li>
+                    <li>各メンバーは、自分の担当するIssueをAssigneeとして設定する</li>
+                    <li>各メンバーは、担当するIssueを確認し、そのIssueを解決するためのコミット／プルリクエストを<code class="code">Closes #XXX</code>と紐づける</li>
+                    <li>プルリクエストをマージして、Issueが自動的にCloseされることを確認する</li>
+                </ol>
+            </p>
+        </section>
+        <section id="7">
+            <h1>7&ensp;GitHubProjectについて</h1>
+            <p>
+                &emsp;複数のIssueやプルリクエストを管理する時は、<span class="point">GitHub Projects</span>という機能を使うと、より視覚的にプロジェクトの進捗を管理できます。
+            </p>
+            <h2 id="7.1">7.1&ensp;プロジェクトボードとは</h2>
+            <p>
+                &emsp;<span class="point">GitHub Projectsとは、Issueやプルリクエストを「To Do」「In Progress」「Done」などのカラムで管理できるボードのような機能</span>です。これにより、チーム全体で「誰が何をしているのか」「何が完了して、何がまだなのか」が一目でわかるようになります。
+                <br>
+                <h3>GitHub Projectsの特徴</h3>
+                <ul>
+                    <li>Issueやプルリクエストをカード化して管理できる</li>
+                    <li>カードを異なるカラムにドラッグ&ドロップして、ステータスを更新できる</li>
+                    <li>優先度やラベルでフィルタリングできる</li>
+                    <li>複数のリポジトリのIssueを1つのボードで管理できる</li>
+                </ul>
+                <div style="text-align: center; margin: 20px 0;">
+                    <img style="border: 3px solid #d6037b; max-width: 100%; height: auto;" src="../img/lecture5/project.png" alt="GitHub Projectsのボード例">
+                </div>
+            </p>
+            <h2 id="7.2">7.2&ensp;プロジェクトの活用</h2>
+            <p>
+                <h3>プロジェクトボードを作成する方法</h3>
+                <ol>
+                    <li>GitHubのリポジトリページで<span class="point">Projects</span>タブをクリック</li>
+                    <li><span class="point">New project</span>ボタンをクリック</li>
+                    <li>プロジェクト名を入力（例：「Development Sprint 1」）</li>
+                    <li>テンプレートを選択（「Kanban」ボードが一般的）</li>
+                    <li><span class="point">Create project</span>ボタンをクリック</li>
+                </ol>
+                &emsp;プロジェクトが作成されたら、以下のようにして使用してください。
+                <br><br>
+                <strong>ステップ1：カラムを設定する</strong>
+                <br>
+                &emsp;デフォルトでは<span class="point">To Do</span>、<span class="point">In Progress</span>、<span class="point">Done</span>のカラムがあります。必要に応じてカラムを追加・編集することもできます。
+                <br><br>
+                <strong>ステップ2：IssueやプルリクエストをボードにAdd する</strong>
+                <br>
+                &emsp;プロジェクトボード上の「+」ボタンをクリックして、既存のIssueやプルリクエストを追加します。または、Issueのページから直接プロジェクトボードに追加することもできます。
+                <br><br>
+                <strong>ステップ3：進捗を更新する</strong>
+                <br>
+                &emsp;メンバーが作業を開始したら、カードを<span class="point">To Do</span>から<span class="point">In Progress</span>にドラッグします。完了したら<span class="point">Done</span>に移動させます。これにより、プロジェクト全体の進捗が一目でわかります。
+                <br>
+                <div class="hint">
+                    <h4><i class="fa-solid fa-lightbulb" style="color: #d6037b;"></i>週間ミーティングの効率化</h4>
+                    <p>
+                        &emsp;チーム開発では、週に1回、全メンバーでミーティングを開いて進捗を報告することが多いです。このとき、GitHub Projectsボードを表示すれば、「今週は何が完了し、何が進行中か」が視覚的にわかります。これにより、ミーティングを効率的に進めることができます。
+                    </p>
+                </div>
+            </p>
+            <h2><i class="fa-solid fa-graduation-cap" style="color: #d6037b;"></i>演習4 : GitHub Projectsの活用</h2>
+            <p>
+                &emsp;演習1、2、3で作成したIssueとプルリクエストを、GitHub Projectsで管理してみましょう。
+                <ol>
+                    <li>新しいGitHub Projectボード（<span class="point">Kanban</span>）を作成する</li>
+                    <li>演習3で作成したIssueを、ボードに追加する</li>
+                    <li>各メンバーは、自分の担当するカードを<span class="point">In Progress</span>に移動させる</li>
+                    <li>各メンバーがプルリクエストを作成してマージしたら、対応するカードを<span class="point">Done</span>に移動させる</li>
+                    <li>最終的に、すべてのカードが<span class="point">Done</span>になることを目指す</li>
+                    <li>ボード全体を確認し、プロジェクトが完了したことを確認する</li>
+                </ol>
+            </p>
+        </section>
+        <section>
+            <h1>終わりに</h1>
+            <p>
+                &emsp;本講座では、GitHubを使ったチーム開発の流れを学びました。ここで学んだ内容は、プロコンだけでなく、高専の授業や社会人になった後の実務開発でも必ず役に立ちます。最初は複雑に感じるかもしれませんが、何度も使うことで自然と身についていきます。これからの章は個人での作業が多いですが、高学年になるとグループ開発の機会が格段に増えるので、個人開発のタイミングから今日習ったことを意識しながら作業してみてください。
+            </p>
+        </section>
+    </main>
+    <script src="../script.js"></script>
 </body>
-<script src="../script.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </html>
